@@ -1,0 +1,27 @@
+{
+  "name": "MelchiorJS",
+  "version": "0.0.0-alpha",
+  "description": "Chainable Module Definition (CMD) javascript loader",
+  "keywords": [
+    "CMD",
+    "AMD",
+    "CommonJS",
+    "module",
+    "loader",
+    "chainable",
+    "lazyloading",
+    "scripts",
+    "require"
+  ],
+  "authors": [
+    "Dmitri Voronianski <dmitri.voronianski@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
