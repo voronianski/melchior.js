@@ -1,18 +1,18 @@
 # MelchiorJS
 
-Ready for use, tiny JavaScript in-browser module loader that implements [Chainable Module Definition (CMD)](https://github.com/tjwudi/wd.js/wiki/module-loader) API proposed by [John Wu](https://github.com/tjwudi).
+Tiny JavaScript in-browser module loader that implements [Chainable Module Definition (CMD)](https://github.com/tjwudi/wd.js/wiki/module-loader) API proposed by [John Wu](https://github.com/tjwudi).
 
 ## Install
 
 ## Usage
 
 ```javascript
-mch.module('moduleName')
-.require('dependencyOne')
-.require('dependencyTwo')
+mch.module('name')
+.require('depOne')
+.require('depTwo')
 .body(function () {
-	dependencyOne.doSomething();
-	dependencyTwo.doSomething();
+	depOne.doSomething();
+	depTwo.doSomething();
 
 	return {
 		method: function () { ... },
@@ -21,10 +21,12 @@ mch.module('moduleName')
 });
 ```
 
-In real world the most likely you will want to use other third-party libs. Firstly it is necessary to specify entry point for all of your modules:
+In real world the most likely you will want to use other third-party libs.
+
+Firstly it is necessary to specify entry point for all of your modules:
 
 ```html
-<script src="/path/to/melchior.js" data-main="/path/to/entry.js" type="text/javascript"></script>
+<script src="/path/to/melchior.js" data-main="/path/to/entry.js"></script>
 ```
 
 Melchior provides special ``.config()`` where you need to specify paths for all libs that you want to use:
@@ -39,7 +41,7 @@ mch.config({
 });
 ```
 
-Now you will be able to require dependencies. You're allowed tp specify an alias for dependency as the second parameter.
+Now you will be able to require dependencies. Also it is allowed to specify an alias for dependency as the second parameter:
 
 ```javascript
 mch.module()
