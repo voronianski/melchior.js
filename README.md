@@ -17,7 +17,7 @@ mch.module('name')
 	return {
 		method: function () { ... },
 		anotherMethod: function () { ... }
-	}
+	};
 });
 ```
 
