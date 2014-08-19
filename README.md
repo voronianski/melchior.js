@@ -7,7 +7,7 @@ Tiny JavaScript in-browser module loader that implements [Chainable Module Defin
 ## Usage
 
 ```javascript
-mch.module('name')
+melchiorjs.module('name')
 .require('depOne')
 .require('depTwo')
 .body(function () {
@@ -32,7 +32,7 @@ Firstly it is necessary to specify entry point for all of your modules:
 Melchior provides special ``.config()`` where you need to specify paths for all libs that you want to use:
 
 ```javascript
-mch.config({
+melchiorjs.config({
 	paths: {
 		'jQuery': 'path/to/jquery',
 		'underscore': '/path/to/underscore',
@@ -44,7 +44,7 @@ mch.config({
 Now you will be able to require dependencies. Also it is allowed to specify an alias for dependency as the second parameter:
 
 ```javascript
-mch.module()
+melchiorjs
 .require('jQuery', '$')
 .require('underscore', '_')
 .require('myModule')
