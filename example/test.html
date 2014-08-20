@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+	<script src="../lib/melchior.js"></script>
+	<script>
+	melchiorjs
+	.module('jQuery')
+	.body(function () {
+		return {
+			all: "true"
+		};
+	});
+
+	melchiorjs
+	.module('app')
+	.require('jQuery', '$')
+	.run(function () {
+		console.log($.all);
+	});
+	</script>
+
+</body>
+</html>
