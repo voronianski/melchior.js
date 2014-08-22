@@ -12,7 +12,7 @@
 	.module('jQuery')
 	.body(function () {
 		return {
-			all: "true"
+			all: function () { return "22" }
 		};
 	});
 
@@ -20,7 +20,8 @@
 	.module('app')
 	.require('jQuery', '$')
 	.run(function () {
-		console.log($.all);
+		var a = $.all();
+		console.log(a);
 	});
 	</script>
 
