@@ -11,8 +11,19 @@
 	melchiorjs
 	.module('jQuery')
 	.body(function () {
+		var str = 'some string';
+		function doSomething () {
+			var text_str_inside = 'a' + 'b';
+			console.log(text_str_inside);
+			console.log("dodo");
+		}
+
 		return {
-			all: function () { return "22" }
+			all: function () { return 22 },
+			value: true,
+			num: 55,
+			external: doSomething,
+			text: 'some'
 		};
 	});
 
@@ -22,6 +33,8 @@
 	.run(function () {
 		var a = $.all();
 		console.log(a);
+		console.log($.text);
+		console.log($.external());
 	});
 	</script>
 
