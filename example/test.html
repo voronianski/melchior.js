@@ -28,6 +28,13 @@
 	});
 
 	melchiorjs
+	.module('core.util')
+	.require('jQuery', '$')
+	.body(function () {
+		console.log($.num);
+	});
+
+	melchiorjs
 	.module('app')
 	.require('jQuery', '$')
 	.run(function () {

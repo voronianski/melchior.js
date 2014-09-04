@@ -1,12 +1,9 @@
 melchiorjs.config({
-	baseUrl: '/js',
 	paths: {
-		'jQuery': 'path/to/jquery',
-		'underscore': '/path/to/underscore'
+		'jQuery': 'js/vendor/jquery'
 	}
 })
 .require('jQuery', '$')
-.require('underscore', '_')
 .run(function () {
 	var books = [{title: 'Princess Maia'}, {title: 'Princess Nuri'}];
 	var $listWrap = $('#list');
