@@ -1,14 +1,10 @@
 melchiorjs.config({
 	paths: {
-		'jQuery': 'js/vendor/jquery'
+		'jQuery': 'js/vendor/jquery.js'
 	}
 })
-.require('jQuery', '$')
+.module('app')
+.require('jQuery', 'S')
 .run(function () {
-	var books = [{title: 'Princess Maia'}, {title: 'Princess Nuri'}];
-	var $listWrap = $('#list');
-
-	_(books).each(function (book) {
-		$listWrap.append('<li>' + book.title + '</li>');
-	});
+	console.log('run', S);
 });
