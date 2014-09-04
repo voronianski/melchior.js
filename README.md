@@ -1,6 +1,6 @@
 # MelchiorJS
 
-Tiny JavaScript in-browser module loader that implements [Chainable Module Definition (CMD)](https://github.com/tjwudi/wd.js/wiki/module-loader) API proposed by [John Wu](https://github.com/tjwudi).
+Tiny JavaScript _in-browser_ module loader that implements [Chainable Module Definition (CMD)](https://github.com/tjwudi/wd.js/wiki/module-loader) API proposed by [John Wu](https://github.com/tjwudi).
 
 ## Install
 
