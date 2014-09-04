@@ -1,6 +1,6 @@
 # MelchiorJS
 
-[![NPM version](http://img.shields.io/badge/status-inprogress-brightgreen.svg?style=flat-square)](http://badge.fury.io/js/ludash)
+[![NPM version](http://img.shields.io/badge/Status-In Progress-red.svg?style=flat-square)](#usage)
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg?style=flat-square)](#License)
 
 Tiny JavaScript _in-browser_ module loader that implements [Chainable Module Definition (CMD)](https://github.com/tjwudi/wd.js/wiki/module-loader) API proposed by [John Wu](https://github.com/tjwudi).
