@@ -15,6 +15,17 @@
 		return document.getElementsByTagName('script');
 	}
 
+	// Iterates over an array.
+	// Stops iteration if the callback returns a truthy value.
+	function each (arr, cb) {
+		if (arr) {
+			var i, l = ary.length;
+			for (i = 0; i < l; i += 1) {
+				if (arr[i] && cb(arr[i], i, arr)) break;
+			}
+		}
+	}
+
 	// Iterates over an array backwards.
 	// Stops iteration if the callback returns a truthy value.
 	function eachReverse (arr, cb) {
@@ -71,7 +82,21 @@
 		if (cfg.paths) {
 			eachProp(cfg.paths, function (url, path) {
 				mch.load(url, function (script) {
-					//mch._moduleTable[path] = new Module
+					var js = '';
+					if (script.content.match(/(melchiorjs)/g)) {
+						js += script.content;
+					} else {
+						js += [
+							'melchiorjs.module("',
+							path,
+							'").body(function () {',
+							' return',
+							script.content,
+							'});'
+						].join('');
+					}
+					debugger;
+					eval(js);
 				});
 			});
 		}
@@ -83,30 +108,43 @@
 		return mch(config);
 	};
 
-	mch._createNode = function () {
-		var node = document.createElement('script');
-		node.type = 'text/javascript';
-		node.charset = 'utf-8';
-		node.async = true;
-		return node;
+	mch._createScript = function () {
+		var script = document.createElement('script');
+		script.type = 'text/javascript';
+		script.charset = 'utf-8';
+		script.defer = true;
+		script.async = true;
+		return script;
 	};
 
 	mch._injectMain = function (url) {
-		var node = this._createNode();
+		var script = this._createScript();
 		var loaded;
 
-		node.onload = node.onerror = node['onreadystatechange'] = function (e) {
-			if ((node['readyState'] && !(/^c|loade/.test(node['readyState']))) || loaded) return;
-			node.onload = node['onreadystatechange'] = null;
+		script.onload = script.onerror = script['onreadystatechange'] = function (e) {
+			if ((script['readyState'] && !(/^c|loade/.test(script['readyState']))) || loaded) return;
+			script.onload = script['onreadystatechange'] = null;
 			loaded = true;
 		};
 
-		node.src = url;
+		script.src = url;
 
 		if (baseElement) {
-			head.insertBefore(node, baseElement);
+			head.insertBefore(script, baseElement);
 		} else {
-			head.appendChild(node);
+			head.appendChild(script);
+		}
+	};
+
+	mch._injectScript = function (content) {
+		var script = this._createScript();
+
+		script.text = content;
+
+		if (baseElement) {
+			head.insertBefore(script, baseElement);
+		} else {
+			head.appendChild(script);
 		}
 	};
 
@@ -142,6 +180,7 @@
 		} else if (!mch._moduleTable[modulePath]) {
 			// module not registered
 			console.log('--- not registered', modulePath);
+
 			// mch._refreshModuleState();
 			// this._exec();
 			//mch.lazyScripts = mch.lazyScripts && mch.lazyScripts.length ? mch.lazyScripts.push(this.path) : [this.path];
@@ -180,6 +219,7 @@
 
 	function Module (modulePath) {
 		this.path = modulePath;
+		this._events = {};
 		this._depTable = {};
 		this._depLength = 0;
 		this._loaded = false;
@@ -214,6 +254,20 @@
 
 			mch._refreshModuleState();
 			this._exec();
+		},
+
+		on: function (name, cb) {
+			var cbs = this.events[name];
+			if (!cbs) {
+				cbs = this.events[name] = [];
+			}
+			cbs.push(cb);
+		},
+
+		emit: function (name, e) {
+			each(this.events[name], function (cb) {
+				cb(e);
+			});
 		},
 
 		// that's where some crazy magic appears!
