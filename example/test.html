@@ -8,6 +8,15 @@
 
 	<script src="../src/melchior.js"></script>
 	<script>
+
+	melchiorjs
+	.module('core.util')
+	.require('jQuery', '$')
+	.body(function () {
+		console.log('CORE UTIL');
+		console.log($.num);
+	});
+
 	melchiorjs
 	.module('jQuery')
 	.body(function () {
@@ -25,15 +34,8 @@
 			external: doSomething,
 			text: 'some'
 		};
-	});
-
-	melchiorjs
-	.module('core.util')
-	.require('jQuery', '$')
-	.body(function () {
-		console.log('CORE UTIL');
-		console.log($.num);
-	});
+	})
+	melchiorjs.inject('jQuery');
 
 	melchiorjs
 	.module('app')

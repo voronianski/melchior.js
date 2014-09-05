@@ -92,14 +92,11 @@
 							';melchiorjs.module("',
 							path,
 							'").body(function () {',
-							' return ',
-							path,
+							' return ', path,
 							';});'
 						].join('');
 					}
-					// console.log('_____');
-					// console.log(js);
-					js += 'melchiorjs.execute("'+path+'");';
+					js += 'melchiorjs.inject("'+path+'");';
 					mch._injectScript(js);
 				});
 			});
@@ -169,7 +166,7 @@
 		xhr.send();
 	};
 
-	mch.execute = function (modulePath) {
+	mch.inject = function (modulePath) {
 		mch.emit('resolved', modulePath);
 	};
 
@@ -202,11 +199,6 @@
 		} else if (!mch._moduleTable[modulePath]) {
 			// module not registered
 			console.log('--- not registered', modulePath);
-
-			// mch._refreshModuleState();
-			// this._exec();
-			//mch.lazyScripts = mch.lazyScripts && mch.lazyScripts.length ? mch.lazyScripts.push(this.path) : [this.path];
-			//console.log(this, mch.lazyScripts);
 		} else if (!mch._moduleTable[modulePath]._loaded) {
 			// module not loaded
 			console.log('--- not loaded', modulePath, mch._moduleTable);
@@ -294,13 +286,9 @@
 		_exec: function () {
 			var vars = '';
 
-			console.log(mch._moduleTable);
-			console.log(this._depTable);
-
 			for (var modulePath in this._depTable) {
 				var instance = mch._getModuleInstance(modulePath);
 
-				console.log('INSTANCE: ', instance, this._body, this, modulePath);
 				if (instance) {
 					var varName = this._depTable[modulePath].alias || modulePath;
 					vars += ['var ', varName, ' = JSON.parse(\'', JSON.stringify(instance, transformFuncs), '\', function (key, value) { if (value && typeof value === "string" && value.substr(0,8) == "function") { var startBody = value.indexOf("{") + 1; var endBody = value.lastIndexOf("}"); var startArgs = value.indexOf("(") + 1; var endArgs = value.indexOf(")"); return new Function(value.substring(startArgs, endArgs), value.substring(startBody, endBody)); } return value; });'].join('');
