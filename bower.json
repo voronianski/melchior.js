@@ -1,7 +1,7 @@
 {
   "name": "melchiorjs",
   "version": "0.0.0-alpha",
-  "description": "Chainable Module Definition (CMD) javascript loader",
+  "description": "Chainable Module Definition (CMD) in-browser module loader",
   "keywords": [
     "CMD",
     "AMD",

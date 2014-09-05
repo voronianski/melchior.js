@@ -1,0 +1,38 @@
+{
+  "name": "melchiorjs",
+  "version": "0.0.0-alpha",
+  "description": "Chainable Module Definition (CMD) in-browser module loader",
+  "main": "src/melchior.js",
+  "keywords": [
+    "CMD",
+    "AMD",
+    "CommonJS",
+    "module",
+    "loader",
+    "chainable",
+    "lazyloading",
+    "scripts",
+    "require"
+  ],
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "express": "^4.8.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/voronianski/melchior.js.git"
+  },
+  "author": "Dmitri Voronianski <dmitri.voronianski@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/voronianski/melchior.js/issues"
+  },
+  "homepage": "https://github.com/voronianski/melchior.js"
+}
