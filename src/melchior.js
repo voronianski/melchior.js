@@ -19,7 +19,7 @@
 	// Stops iteration if the callback returns a truthy value.
 	function each (arr, cb) {
 		if (arr) {
-			var i, l = ary.length;
+			var i, l = arr.length;
 			for (i = 0; i < l; i += 1) {
 				if (arr[i] && cb(arr[i], i, arr)) break;
 			}
@@ -83,20 +83,24 @@
 			eachProp(cfg.paths, function (url, path) {
 				mch.load(url, function (script) {
 					var js = '';
+					script.content = script.content.replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:^\s*\/\/(?:.*)$)/gm, '');
 					if (script.content.match(/(melchiorjs)/g)) {
 						js += script.content;
 					} else {
 						js += [
-							'melchiorjs.module("',
+							script.content,
+							';melchiorjs.module("',
 							path,
 							'").body(function () {',
-							' return',
-							script.content,
-							'});'
+							' return ',
+							path,
+							';});'
 						].join('');
 					}
-					debugger;
-					eval(js);
+					// console.log('_____');
+					// console.log(js);
+					js += 'melchiorjs.execute("'+path+'");';
+					mch._injectScript(js);
 				});
 			});
 		}
@@ -128,19 +132,17 @@
 		};
 
 		script.src = url;
-
-		if (baseElement) {
-			head.insertBefore(script, baseElement);
-		} else {
-			head.appendChild(script);
-		}
+		this._appendScript(script);
 	};
 
 	mch._injectScript = function (content) {
 		var script = this._createScript();
 
 		script.text = content;
+		this._appendScript(script);
+	};
 
+	mch._appendScript = function (script) {
 		if (baseElement) {
 			head.insertBefore(script, baseElement);
 		} else {
@@ -165,6 +167,26 @@
 			}
 		};
 		xhr.send();
+	};
+
+	mch.execute = function (modulePath) {
+		mch.emit('resolved', modulePath);
+	};
+
+	mch._events = {};
+
+	mch.on = function (name, cb) {
+		var cbs = this._events[name];
+		if (!cbs) {
+			cbs = this._events[name] = [];
+		}
+		cbs.push(cb);
+	};
+
+	mch.emit = function (name, e) {
+		each(this._events[name], function (cb) {
+			cb(e);
+		});
 	};
 
 	mch._moduleTable = {};
@@ -219,7 +241,6 @@
 
 	function Module (modulePath) {
 		this.path = modulePath;
-		this._events = {};
 		this._depTable = {};
 		this._depLength = 0;
 		this._loaded = false;
@@ -229,8 +250,20 @@
 
 	Module.prototype = {
 		require: function (depModulePath, alias) {
+			var self = this;
 			this._depTable[depModulePath] = { alias: alias };
 			this._depLength++;
+
+			// if depModulePath is not resolved and executed
+			// attach listener to it to know when it will be available
+			if (!hasProp(mch._moduleTable, depModulePath)) {
+				mch.on('resolved', function (e) {
+					if (e === depModulePath) {
+						mch._refreshModuleState();
+						self._exec();
+					}
+				});
+			}
 
 			return this;
 		},
@@ -256,20 +289,6 @@
 			this._exec();
 		},
 
-		on: function (name, cb) {
-			var cbs = this.events[name];
-			if (!cbs) {
-				cbs = this.events[name] = [];
-			}
-			cbs.push(cb);
-		},
-
-		emit: function (name, e) {
-			each(this.events[name], function (cb) {
-				cb(e);
-			});
-		},
-
 		// that's where some crazy magic appears!
 		// parses module code and injects it inside `body` or `run`
 		_exec: function () {
@@ -281,6 +300,7 @@
 			for (var modulePath in this._depTable) {
 				var instance = mch._getModuleInstance(modulePath);
 
+				console.log('INSTANCE: ', instance, this._body, this, modulePath);
 				if (instance) {
 					var varName = this._depTable[modulePath].alias || modulePath;
 					vars += ['var ', varName, ' = JSON.parse(\'', JSON.stringify(instance, transformFuncs), '\', function (key, value) { if (value && typeof value === "string" && value.substr(0,8) == "function") { var startBody = value.indexOf("{") + 1; var endBody = value.lastIndexOf("}"); var startArgs = value.indexOf("(") + 1; var endArgs = value.indexOf(")"); return new Function(value.substring(startArgs, endArgs), value.substring(startBody, endBody)); } return value; });'].join('');
