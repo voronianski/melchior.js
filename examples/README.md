@@ -12,7 +12,7 @@ Start server with `node server.js` and you should be able to check all of the ex
 
 ## List of apps
 
-- [**Basic**](https://github.com/voronianski/melchior.js/tree/master/examples/basic) `http://localhost:9090/examples/baic`
+- [**Basic**](https://github.com/voronianski/melchior.js/tree/master/examples/basic) `http://localhost:9090/examples/basic`
 - [**Angular.js**](https://github.com/voronianski/melchior.js/tree/master/examples/angular) `http://localhost:9090/examples/angular`
 - [**Backbone.js**](https://github.com/voronianski/melchior.js/tree/master/examples/backbone) `http://localhost:9090/examples/backbone`
 - [**No config**](https://github.com/voronianski/melchior.js/tree/master/examples/noconfig) `http://localhost:9090/examples/noconfig`
