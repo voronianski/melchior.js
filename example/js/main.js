@@ -1,13 +1,26 @@
 melchiorjs.config({
 	paths: {
 		'jQuery': 'js/vendor/jquery.js',
+
+		// path name the same as the global that lib exposes
+		// saves from optional `shim` option
 		'_': 'js/vendor/underscore.js'
 	}
 })
-.module('app')
-.require('jQuery', 'S')
-.require('_', 'uu')
+
+.module('myApp')
+
+// provide any alias for module as second param
+.require('jQuery', 'jQ')
+.require('_')
+
 .run(function () {
-	console.log('///', uu);
-	console.log('run', S);
+	'use strict';
+
+	var books = [{title: 'Princess Maia'}, {title: 'Princess Noori'}, {title: 'Princess Gita'}];
+	var $listWrap = jQ('#list');
+
+	_(books).each(function (book) {
+		$listWrap.append('<li>' + book.title + '</li>');
+	});
 });

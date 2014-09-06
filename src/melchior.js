@@ -82,6 +82,7 @@
 		if (cfg.paths) {
 			eachProp(cfg.paths, function (url, path) {
 				mch.load(url, function (script) {
+					console.log('LOADED ', url);
 					var js = '';
 					script.content = script.content.replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:^\s*\/\/(?:.*)$)/gm, '');
 					if (script.content.match(/(melchiorjs)/g)) {
@@ -148,7 +149,6 @@
 	};
 
 	mch.load = function (url, cb) {
-		console.log(url);
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', url);
 		xhr.onreadystatechange = function () {
@@ -167,6 +167,7 @@
 	};
 
 	mch.inject = function (modulePath) {
+		console.log('Inject ', modulePath);
 		mch.emit('resolved', modulePath);
 	};
 
@@ -181,6 +182,7 @@
 	};
 
 	mch.emit = function (name, e) {
+		console.log('EMIT: ', name, e);
 		each(this._events[name], function (cb) {
 			cb(e);
 		});
@@ -203,15 +205,17 @@
 			// module not loaded
 			console.log('--- not loaded', modulePath, mch._moduleTable);
 		} else {
-			console.log('--- boom', modulePath, mch._moduleTable);
-			return mch._moduleTable[modulePath]._instance;
+			console.log('--- boom', modulePath, mch._moduleTable, mch._moduleTable[modulePath]);
+			return mch._moduleTable[modulePath]['_instance'];
 		}
 	};
 
 	mch._checkDependenciesResolved = function (moduleLoader) {
-		eachProp(moduleLoader._depTable, function (dep, modulePath) {
-			if (!dep && !dep._loaded) return true;
-		});
+		console.log('CHECK DEPS RESOLVED FOR: ', moduleLoader.path, moduleLoader._loaded, moduleLoader._depTable);
+		for (var modulePath in moduleLoader._depTable) {
+			var dep = mch._moduleTable[modulePath];
+			if (!dep || !dep._loaded) return false;
+		}
 
 		moduleLoader._loaded = true;
 		return true;
@@ -223,6 +227,7 @@
 		eachProp(mch._moduleTable, function (moduleLoader, modulePath) {
 			if (!moduleLoader._loaded) {
 				newModuleLoaded = newModuleLoaded || mch._checkDependenciesResolved(moduleLoader);
+				console.log('REFRESH STATE: ', newModuleLoaded);
 			}
 		});
 
@@ -250,6 +255,28 @@
 			// attach listener to it to know when it will be available
 			if (!hasProp(mch._moduleTable, depModulePath)) {
 				mch.on('resolved', function (e) {
+					if (e === depModulePath) {
+						self.run();
+					}
+					// if (!mch._moduleTable[depModulePath]._loaded) {
+
+					// }
+				});
+			}
+
+			console.log('REQUIRE FROM: ', this.path, 'WHAT: ', depModulePath);
+			console.log('GLOBAL MODULE TABLE: ', mch._moduleTable, hasProp(mch._moduleTable, depModulePath) && !mch._moduleTable[depModulePath]._loaded);
+			// mch.on('wrapped', function (e) {
+			// 	console.log('WRAPPED', e, depModulePath, self.path);
+			// 	if (e === depModulePath) {
+			// 		self.run();
+			// 	}
+			// });
+
+			// subscribe to wrapped event if has unresolved deps
+			if (hasProp(mch._moduleTable, depModulePath) && !mch._moduleTable[depModulePath]._loaded) {
+				mch.on('wrapped', function (e) {
+					console.log('WRAPPED:', e, 'REQUIRED: ', depModulePath, 'ON: ', self.path);
 					if (e === depModulePath) {
 						self.run();
 					}
@@ -287,20 +314,25 @@
 		_exec: function () {
 			var vars = '';
 
+			console.log('EXEC DEPS: ', this._depTable, this.path);
 			for (var modulePath in this._depTable) {
 				var instance = mch._getModuleInstance(modulePath);
 
+				console.log('INSTANCE: ', instance, 'FOR PATH:', modulePath);
 				if (instance) {
 					var varName = this._depTable[modulePath].alias || modulePath;
+					console.log('VAR NAME: ', varName);
 					vars += ['var ', varName, ' = JSON.parse(\'', JSON.stringify(instance, transformFuncs), '\', function (key, value) { if (value && typeof value === "string" && value.substr(0,8) == "function") { var startBody = value.indexOf("{") + 1; var endBody = value.lastIndexOf("}"); var startArgs = value.indexOf("(") + 1; var endArgs = value.indexOf(")"); return new Function(value.substring(startArgs, endArgs), value.substring(startBody, endBody)); } return value; });'].join('');
 				} else {
 					return false;
 				}
 			}
 
-			var wrapFn = new Function([vars, 'return (', this._body ,')();'].join(''));
+			var wrapFn = new Function([vars, ' return (', this._body, ')();'].join(''));
+			console.log('WRAPFN: ', wrapFn);
 			this._instance = wrapFn();
-			console.log('EXEC ', this, wrapFn);
+			mch.emit('wrapped', this.path.toString());
+
 		}
 	};
 

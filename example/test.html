@@ -10,6 +10,17 @@
 	<script>
 
 	melchiorjs
+	.module('app')
+	.require('jQuery', '$')
+	.run(function () {
+		console.log('APP STARTED');
+		var a = $.all();
+		console.log(a);
+		console.log($.text);
+		console.log($.external());
+	});
+
+	melchiorjs
 	.module('core.util')
 	.require('jQuery', '$')
 	.body(function () {
@@ -20,7 +31,7 @@
 	melchiorjs
 	.module('jQuery')
 	.body(function () {
-		console.log('jQuery STARTED');
+		console.log('JQUERY STARTED');
 		var str = 'some string';
 		function doSomething () {
 			var text_str_inside = 'a' + 'b';
@@ -37,17 +48,6 @@
 		};
 	})
 	melchiorjs.inject('jQuery');
-
-	melchiorjs
-	.module('app')
-	.require('jQuery', '$')
-	.run(function () {
-		console.log('APP STARTED');
-		var a = $.all();
-		console.log(a);
-		console.log($.text);
-		console.log($.external());
-	});
 	</script>
 
 </body>
