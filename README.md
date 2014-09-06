@@ -7,6 +7,12 @@ Tiny JavaScript _in-browser_ module loader that implements [Chainable Module Def
 
 ## Install
 
+You can download all necessary _Melchior_ files manually or install it with [Bower](http://bower.io/):
+
+```bash
+bower install melchiorjs
+```
+
 ## Usage
 
 ```javascript

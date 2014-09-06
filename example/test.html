@@ -13,13 +13,14 @@
 	.module('core.util')
 	.require('jQuery', '$')
 	.body(function () {
-		console.log('CORE UTIL');
+		console.log('CORE UTIL STARTED');
 		console.log($.num);
 	});
 
 	melchiorjs
 	.module('jQuery')
 	.body(function () {
+		console.log('jQuery STARTED');
 		var str = 'some string';
 		function doSomething () {
 			var text_str_inside = 'a' + 'b';
@@ -41,6 +42,7 @@
 	.module('app')
 	.require('jQuery', '$')
 	.run(function () {
+		console.log('APP STARTED');
 		var a = $.all();
 		console.log(a);
 		console.log($.text);

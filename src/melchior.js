@@ -300,6 +300,7 @@
 
 			var wrapFn = new Function([vars, 'return (', this._body ,')();'].join(''));
 			this._instance = wrapFn();
+			console.log('EXEC ', this, wrapFn);
 		}
 	};
 
