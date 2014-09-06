@@ -251,8 +251,7 @@
 			if (!hasProp(mch._moduleTable, depModulePath)) {
 				mch.on('resolved', function (e) {
 					if (e === depModulePath) {
-						mch._refreshModuleState();
-						self._exec();
+						self.run();
 					}
 				});
 			}
@@ -261,7 +260,9 @@
 		},
 
 		run: function (fn) {
-			this._body = fn;
+			if (fn) {
+				this._body = fn;
+			}
 
 			mch._refreshModuleState();
 			this._exec();

@@ -61,6 +61,20 @@ melchiorjs
 
 ## API
 
+### module(name)
+
+### require(moduleName, [alias])
+
+### run([fn])
+
+### body(fn)
+
+### config(options)
+
+### inject(moduleName)
+
+### 
+
 ## References
 
 ## License
