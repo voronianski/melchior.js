@@ -21,7 +21,9 @@
 	function each (arr, cb) {
 		if (arr) {
 			for (var i = 0, len = arr.length; i < len; i++) {
-				if (arr[i]) cb(arr[i], i, arr);
+				if (arr[i]) {
+					cb(arr[i], i, arr);
+				}
 			}
 		}
 	}
@@ -32,7 +34,9 @@
 		if (arr) {
 			var i = arr.length;
 			while (i--) {
-				if (arr[i] && cb(arr[i], i, arr)) break;
+				if (arr[i] && cb(arr[i], i, arr)) {
+					break;
+				}
 			}
 		}
 	}
@@ -47,7 +51,9 @@
 		var prop;
 		for (prop in obj) {
 			if (hasProp(obj, prop)) {
-				if (cb(obj[prop], prop)) break;
+				if (cb(obj[prop], prop)) {
+					break;
+				}
 			}
 		}
 	}
@@ -113,9 +119,11 @@
 		var script = this._createScript();
 		var loaded;
 
-		script.onload = script.onerror = script['onreadystatechange'] = function (e) {
-			if ((script['readyState'] && !(/^c|loade/.test(script['readyState']))) || loaded) return;
-			script.onload = script['onreadystatechange'] = null;
+		script.onload = script.onerror = script.onreadystatechange = function (e) {
+			if ((script.readyState && !(/^c|loade/.test(script.readyState))) || loaded) {
+				return;
+			}
+			script.onload = script.onreadystatechange = null;
 			loaded = true;
 		};
 
@@ -197,7 +205,9 @@
 	mch._checkDependenciesResolved = function (moduleLoader) {
 		for (var modulePath in moduleLoader._depTable) {
 			var dep = mch._moduleTable[modulePath];
-			if (!dep || !dep._loaded) return false;
+			if (!dep || !dep._loaded) {
+				return false;
+			}
 		}
 
 		// when module is loaded fire an event to notify all dependencies
@@ -221,8 +231,6 @@
 	};
 
 	function Module (modulePath) {
-		var self = this;
-
 		this.path = modulePath;
 		this._depTable = {};
 		this._depLength = 0;
@@ -233,7 +241,6 @@
 
 	Module.prototype = {
 		require: function (depModulePath, alias) {
-			var self = this;
 			this._depTable[depModulePath] = { alias: alias };
 			this._depLength++;
 
