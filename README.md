@@ -16,7 +16,7 @@ Nothing actually and it's more the matter of taste.. but the [idea](http://daily
 
 As **CommonJS** is more good for non-browser environments, _chained requires_ fit perfectly for in-browser use cases. 
 
-As for the draft's short name, **CMD** might be not a good choice because of already existing [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), so alternatives like **CnMD** or **ChainMD** are possible options.
+As for the draft's short name, **CMD** might be not a good choice because of already existing [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), so alternatives like **ChMD** or **ChainMD** are possible options.
 
 ## Install
 
