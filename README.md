@@ -77,8 +77,6 @@ melchiorjs
 
 ### config(options)
 
-### inject(moduleName)
-
 ### 
 
 ## References

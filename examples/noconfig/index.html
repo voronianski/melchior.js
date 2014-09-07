@@ -17,6 +17,8 @@
 
 	<p>Loading all modules inside one <code>script</code> tag.</p>
 
+	<ul id="list"></ul>
+
 	<script src="../basic/js/vendor/jquery.js"></script>
 	<script src="../basic/js/vendor/underscore.js"></script>
 	<script src="../../src/melchior.js"></script>
@@ -33,19 +35,15 @@
 
 	melchiorjs.module('BasicView')
 	.require('jQuery', 'jQ')
-	.require('_', 'uu')
+	.require('_')
 	.body(function () {
-
-		console.log('BASIC VIEW', jQ);
 
 		return {
 			render: function () {
-				console.log('222');
-				console.log('RENDERING', jQ);
 				var books = [{title: 'Princess Maia'}, {title: 'Princess Noori'}, {title: 'Princess Gita'}];
 				var $listWrap = jQ('#list');
 
-				uu(books).each(function (book) {
+				_(books).each(function (book) {
 					$listWrap.append('<li>' + book.title + '</li>');
 				});
 			}
@@ -55,7 +53,6 @@
 	melchiorjs.module('myApp')
 	.require('BasicView')
 	.run(function () {
-		console.log('APP STARTED');
 		BasicView.render();
 	});
 

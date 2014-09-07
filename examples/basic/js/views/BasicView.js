@@ -7,12 +7,8 @@ melchiorjs.module('BasicView')
 .body(function () {
 	'use strict';
 
-	console.log('BASIC VIEW', jQ);
-
 	return {
 		render: function () {
-			console.log('222');
-			console.log('RENDERING', jQ);
 			var books = [{title: 'Princess Maia'}, {title: 'Princess Noori'}, {title: 'Princess Gita'}];
 			var $listWrap = jQ('#list');
 

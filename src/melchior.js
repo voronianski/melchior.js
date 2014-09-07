@@ -1,8 +1,9 @@
-(function (exports, undefined) {
+(function (global, undefined) {
 	'use strict';
 
 	var cfg = {};
 	var head = document.getElementsByTagName('head')[0];
+	var commentRegExp = /(?:\/\*(?:[\s\S]*?)\*\/)|(?:^\s*\/\/(?:.*)$)/gm;
 
 	// Related to bug - http://dev.jquery.com/ticket/2709
 	// If <BASE> tag is in play, using appendChild is a problem for IE6.
@@ -51,14 +52,6 @@
 		}
 	}
 
-	// transform functions for js objects parsing
-	function transformFuncs (key, val) {
-		if (typeof val === 'function') {
-			return val.toString().replace(/(\t|\n|\r)/gm, '').replace(/("|')/gm, '\\"');
-		}
-		return val;
-	}
-
 	eachReverse(getScripts(), function (script) {
 		var mainScript = script.getAttribute('data-main');
 		if (mainScript) {
@@ -72,7 +65,7 @@
 	// 3. When all required deps are ready run body/run method
 	// 4. Inject dependencies as variables
 
-	var mch = exports.melchiorjs = function (config) {
+	var mch = global.melchiorjs = function (config) {
 		if (config.deps) {
 			mch._injectMain(cfg.deps[0]);
 		}
@@ -81,9 +74,8 @@
 		if (cfg.paths) {
 			eachProp(cfg.paths, function (url, path) {
 				mch.load(url, function (script) {
-					console.log('LOADED ', url);
 					var js = '';
-					script.content = script.content.replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:^\s*\/\/(?:.*)$)/gm, '');
+					script.content = script.content.replace(commentRegExp, '');
 					if (script.content.match(/(melchiorjs)/g)) {
 						js += script.content;
 					} else {
@@ -96,7 +88,6 @@
 							';});'
 						].join('');
 					}
-					js += 'melchiorjs.inject("'+path+'");';
 					mch._injectScript(js);
 				});
 			});
@@ -165,11 +156,6 @@
 		xhr.send();
 	};
 
-	mch.inject = function (modulePath) {
-		//console.log('INJECT: ', modulePath);
-		//mch.emit('resolved', modulePath);
-	};
-
 	mch._events = {};
 
 	mch.on = function (name, cb) {
@@ -178,11 +164,9 @@
 			cbs = this._events[name] = [];
 		}
 		cbs.push(cb);
-		console.log('ON CALLBACK: ', cbs, name);
 	};
 
 	mch.emit = function (name, e) {
-		console.log('EMIT: ', name, e);
 		each(this._events[name], function (cb) {
 			cb(e);
 		});
@@ -211,7 +195,6 @@
 	};
 
 	mch._checkDependenciesResolved = function (moduleLoader) {
-		console.log('CHECK DEPS RESOLVED FOR: ', moduleLoader.path, moduleLoader._loaded, moduleLoader._depTable);
 		for (var modulePath in moduleLoader._depTable) {
 			var dep = mch._moduleTable[modulePath];
 			if (!dep || !dep._loaded) return false;
@@ -229,7 +212,6 @@
 		eachProp(mch._moduleTable, function (moduleLoader, modulePath) {
 			if (!moduleLoader._loaded) {
 				newModuleLoaded = newModuleLoaded || mch._checkDependenciesResolved(moduleLoader);
-				console.log('REFRESH STATE: ', newModuleLoaded);
 			}
 		});
 
@@ -255,35 +237,6 @@
 			this._depTable[depModulePath] = { alias: alias };
 			this._depLength++;
 
-			// if depModulePath is not resolved and executed
-			// attach listener to it to know when it will be available
-			// if (!hasProp(mch._moduleTable, depModulePath)) {
-			// 	mch.on('resolved', function (e) {
-			// 		if (e === depModulePath) {
-			// 			self._run();
-			// 		}
-			// 	});
-			// }
-
-			console.log('REQUIRE FROM: ', this.path, 'WHAT: ', depModulePath);
-			console.log('GLOBAL MODULE TABLE: ', mch._moduleTable, hasProp(mch._moduleTable, depModulePath) && !mch._moduleTable[depModulePath]._loaded);
-			// mch.on('wrapped', function (e) {
-			// 	console.log('WRAPPED', e, depModulePath, self.path);
-			// 	if (e === depModulePath) {
-			// 		self.run();
-			// 	}
-			// });
-
-			// subscribe to wrapped event if has unresolved deps
-			// if (hasProp(mch._moduleTable, depModulePath) && !mch._moduleTable[depModulePath]._loaded) {
-			// 	mch.on('wrapped', function (e) {
-			// 		console.log('WRAPPED:', e, 'REQUIRED: ', depModulePath, 'ON: ', self.path);
-			// 		if (e === depModulePath) {
-			// 			self.run();
-			// 		}
-			// 	});
-			// }
-
 			return this;
 		},
 
@@ -292,7 +245,6 @@
 				this._body = fn;
 			}
 
-			console.log('RUN: ', this.path);
 			this._run();
 		},
 
@@ -304,7 +256,6 @@
 				mch.emit('ready', this);
 			}
 
-			console.log('BODY: ', this.path);
 			this._run();
 		},
 
@@ -317,17 +268,10 @@
 				self._exec();
 			} else {
 				mch.on('ready', function (mod) {
-					// console.log('_RUN READY: ', self.ready, self.path, '===', mod.path);
 					if (mod.path === self.path) {
-						// console.log('ONREADY: ', mod.path, self.path, self.ready);
-						// self.ready = true;
-						// mch.on('wrapped', function (path) {
-						// 	console.log('!!! ONWRAPPED: ', self.path, 'WITH: ', path);
-						// 	if (hasProp(self._depTable, path)) self._exec();
-						// });
 						setTimeout(function () {
 							self._exec();
-						}, 100);
+						}, 0);
 					}
 				});
 			}
@@ -336,31 +280,27 @@
 		// that's where some crazy magic appears!
 		// parses module code and injects it inside `body` or `run`
 		_exec: function () {
-			var vars = '';
+			var self = this;
+			var deps = [];
 
-			console.log('EXEC DEPS: ', this._depTable, this.path);
-			for (var modulePath in this._depTable) {
+			for (var modulePath in self._depTable) {
 				var instance = mch._getModuleInstance(modulePath);
-
-				console.log('INSTANCE: ', instance, 'FOR PATH:', modulePath);
 				if (instance) {
-					var varName = this._depTable[modulePath].alias || modulePath;
-					console.log('VAR NAME: ', varName);
-					vars += ['var ', varName, ' = JSON.parse(\'', JSON.stringify(instance, transformFuncs), '\', function (key, value) { if (value && typeof value === "string" && value.substr(0,8) == "function") { var startBody = value.indexOf("{") + 1; var endBody = value.lastIndexOf("}"); var startArgs = value.indexOf("(") + 1; var endArgs = value.indexOf(")"); return new Function(value.substring(startArgs, endArgs), value.substring(startBody, endBody)); } return value; });'].join('');
+					var varName = self._depTable[modulePath].alias || modulePath;
+					deps.push({varName: varName, instance: instance});
 				} else {
 					return false;
 				}
 			}
 
-			console.log('VARS: ', vars);
-			var injecters = names.join(', ');
-			var wrapFn = new Function([vars, ' return (', this._body, ')(', injecters, ');'].join(''));
-			// debugger;
-			console.log('WRAPFN: ', wrapFn);
-			this._instance = wrapFn();
-			// mch.emit('ready', this);
-
-			// mch.emit('wrapped', this.path.toString());
+			var wrapFn = function () {
+				var scope = this;
+				each(deps, function (dep) {
+					scope[dep.varName] = dep.instance;
+				});
+				return (self._body)();
+			};
+			self._instance = wrapFn.call(global);
 		}
 	};
 
