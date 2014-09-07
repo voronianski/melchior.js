@@ -12,7 +12,7 @@ _Melchior_ does not have dependencies on any JavaScript framework. It is small w
 
 ## What's wrong with AMD and CommonJS?
 
-Nothing actually and it's more the matter of taste.. but the idea behind _chainable modules_ solves several nasty **AMD** patterns like long lines of declaring dependencies :tired_face: and provides simplicity and readability with its' visual-friendly and clean syntax :sunglasses:. 
+Nothing actually and it's more the matter of taste.. but the [idea](http://dailyjs.com/2014/07/14/alternative-module-api/) behind _chainable modules_ solves several nasty **AMD** patterns like long lines of declaring dependencies :tired_face: and provides simplicity and readability with its' visual-friendly and clean syntax :sunglasses:. 
 
 As **CommonJS** is more good for non-browser environments, _chained requires_ fit perfectly for in-browser use cases. 
 
