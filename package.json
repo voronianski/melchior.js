@@ -33,7 +33,7 @@
     "morgan": "^1.3.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers Chrome"
+    "test": "./node_modules/karma/bin/karma start --single-run --browsers Chrome"
   },
   "repository": {
     "type": "git",
