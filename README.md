@@ -12,7 +12,9 @@ _Melchior_ does not have dependencies on any JavaScript framework. It is small w
 
 ## What's wrong with AMD and CommonJS?
 
-Nothing actually and it's more the matter of taste.. but the idea behind _chainable modules_ solves several nasty **AMD** patterns like long lines of declaring dependencies :tired_face: and provides simplicity and readability with its' visual-friendly and clean syntax. As **CommonJS** is more good for non-browser environments, _chained requires_ fit perfectly for in-browser use cases. 
+Nothing actually and it's more the matter of taste.. but the idea behind _chainable modules_ solves several nasty **AMD** patterns like long lines of declaring dependencies :tired_face: and provides simplicity and readability with its' visual-friendly and clean syntax :sunglasses:. 
+
+As **CommonJS** is more good for non-browser environments, _chained requires_ fit perfectly for in-browser use cases. 
 
 As for the draft's short name, **CMD** might be not a good choice because of already existing [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), so alternatives like **CnMD** or **ChainMD** are possible options.
 
