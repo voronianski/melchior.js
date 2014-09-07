@@ -337,7 +337,6 @@
 		// parses module code and injects it inside `body` or `run`
 		_exec: function () {
 			var vars = '';
-			var names = [];
 
 			console.log('EXEC DEPS: ', this._depTable, this.path);
 			for (var modulePath in this._depTable) {
@@ -347,7 +346,6 @@
 				if (instance) {
 					var varName = this._depTable[modulePath].alias || modulePath;
 					console.log('VAR NAME: ', varName);
-					if (varName) names.push(varName);
 					vars += ['var ', varName, ' = JSON.parse(\'', JSON.stringify(instance, transformFuncs), '\', function (key, value) { if (value && typeof value === "string" && value.substr(0,8) == "function") { var startBody = value.indexOf("{") + 1; var endBody = value.lastIndexOf("}"); var startArgs = value.indexOf("(") + 1; var endArgs = value.indexOf(")"); return new Function(value.substring(startArgs, endArgs), value.substring(startBody, endBody)); } return value; });'].join('');
 				} else {
 					return false;
@@ -360,7 +358,6 @@
 			// debugger;
 			console.log('WRAPFN: ', wrapFn);
 			this._instance = wrapFn();
-			names = [];
 			// mch.emit('ready', this);
 
 			// mch.emit('wrapped', this.path.toString());
