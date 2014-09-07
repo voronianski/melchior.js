@@ -190,7 +190,7 @@
 			console.log('--- not loaded', modulePath, mch._moduleTable);
 		} else {
 			console.log('--- boom', modulePath, mch._moduleTable, mch._moduleTable[modulePath]);
-			return mch._moduleTable[modulePath]['_instance'];
+			return mch._moduleTable[modulePath]._instance;
 		}
 	};
 
