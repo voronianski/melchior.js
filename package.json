@@ -1,6 +1,6 @@
 {
   "name": "melchiorjs",
-  "version": "0.0.0-alpha",
+  "version": "0.0.1-alpha",
   "description": "Chainable Module Definition (CMD) in-browser module loader",
   "main": "src/melchior.js",
   "keywords": [
@@ -21,6 +21,9 @@
   "dependencies": {},
   "devDependencies": {
     "express": "^4.8.7",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.5.1",
     "morgan": "^1.3.0"
   },
   "scripts": {
