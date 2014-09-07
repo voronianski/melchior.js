@@ -1,6 +1,7 @@
 # MelchiorJS
 
 [![NPM version](http://img.shields.io/badge/Status-In Progress-red.svg?style=flat-square)](#usage)
+[![build status](http://img.shields.io/travis/voronianski/melchior.js.svg?style=flat-square)](https://travis-ci.org/voronianski/melchior.js)
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg?style=flat-square)](#license)
 
 Tiny JavaScript _in-browser_ module loader that implements [Chainable Module Definition (CMD)](https://github.com/tjwudi/wd.js/wiki/module-loader) API proposed by [John Wu](https://github.com/tjwudi).
