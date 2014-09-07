@@ -19,9 +19,8 @@
 	// Stops iteration if the callback returns a truthy value.
 	function each (arr, cb) {
 		if (arr) {
-			var i, l = arr.length;
-			for (i = 0; i < l; i += 1) {
-				if (arr[i] && cb(arr[i], i, arr)) break;
+			for (var i = 0, len = arr.length; i < len; i++) {
+				if (arr[i]) cb(arr[i], i, arr);
 			}
 		}
 	}
@@ -167,8 +166,8 @@
 	};
 
 	mch.inject = function (modulePath) {
-		console.log('Inject ', modulePath);
-		mch.emit('resolved', modulePath);
+		//console.log('INJECT: ', modulePath);
+		//mch.emit('resolved', modulePath);
 	};
 
 	mch._events = {};
@@ -179,6 +178,7 @@
 			cbs = this._events[name] = [];
 		}
 		cbs.push(cb);
+		console.log('ON CALLBACK: ', cbs, name);
 	};
 
 	mch.emit = function (name, e) {
@@ -217,7 +217,9 @@
 			if (!dep || !dep._loaded) return false;
 		}
 
+		// when module is loaded fire an event to notify all dependencies
 		moduleLoader._loaded = true;
+		mch.emit('ready', moduleLoader);
 		return true;
 	};
 
@@ -237,6 +239,8 @@
 	};
 
 	function Module (modulePath) {
+		var self = this;
+
 		this.path = modulePath;
 		this._depTable = {};
 		this._depLength = 0;
@@ -253,16 +257,13 @@
 
 			// if depModulePath is not resolved and executed
 			// attach listener to it to know when it will be available
-			if (!hasProp(mch._moduleTable, depModulePath)) {
-				mch.on('resolved', function (e) {
-					if (e === depModulePath) {
-						self.run();
-					}
-					// if (!mch._moduleTable[depModulePath]._loaded) {
-
-					// }
-				});
-			}
+			// if (!hasProp(mch._moduleTable, depModulePath)) {
+			// 	mch.on('resolved', function (e) {
+			// 		if (e === depModulePath) {
+			// 			self._run();
+			// 		}
+			// 	});
+			// }
 
 			console.log('REQUIRE FROM: ', this.path, 'WHAT: ', depModulePath);
 			console.log('GLOBAL MODULE TABLE: ', mch._moduleTable, hasProp(mch._moduleTable, depModulePath) && !mch._moduleTable[depModulePath]._loaded);
@@ -274,14 +275,14 @@
 			// });
 
 			// subscribe to wrapped event if has unresolved deps
-			if (hasProp(mch._moduleTable, depModulePath) && !mch._moduleTable[depModulePath]._loaded) {
-				mch.on('wrapped', function (e) {
-					console.log('WRAPPED:', e, 'REQUIRED: ', depModulePath, 'ON: ', self.path);
-					if (e === depModulePath) {
-						self.run();
-					}
-				});
-			}
+			// if (hasProp(mch._moduleTable, depModulePath) && !mch._moduleTable[depModulePath]._loaded) {
+			// 	mch.on('wrapped', function (e) {
+			// 		console.log('WRAPPED:', e, 'REQUIRED: ', depModulePath, 'ON: ', self.path);
+			// 		if (e === depModulePath) {
+			// 			self.run();
+			// 		}
+			// 	});
+			// }
 
 			return this;
 		},
@@ -291,28 +292,52 @@
 				this._body = fn;
 			}
 
-			mch._refreshModuleState();
-			this._exec();
-
-			return this;
+			console.log('RUN: ', this.path);
+			this._run();
 		},
 
 		body: function (fn) {
 			this._body = fn;
 
 			if (this._depLength === 0) {
-				this._exec();
-				return;
+				this._loaded = true;
+				mch.emit('ready', this);
 			}
 
+			console.log('BODY: ', this.path);
+			this._run();
+		},
+
+		_run: function () {
+			var self = this;
+
 			mch._refreshModuleState();
-			this._exec();
+
+			if (self._loaded) {
+				self._exec();
+			} else {
+				mch.on('ready', function (mod) {
+					// console.log('_RUN READY: ', self.ready, self.path, '===', mod.path);
+					if (mod.path === self.path) {
+						// console.log('ONREADY: ', mod.path, self.path, self.ready);
+						// self.ready = true;
+						// mch.on('wrapped', function (path) {
+						// 	console.log('!!! ONWRAPPED: ', self.path, 'WITH: ', path);
+						// 	if (hasProp(self._depTable, path)) self._exec();
+						// });
+						setTimeout(function () {
+							self._exec();
+						}, 100);
+					}
+				});
+			}
 		},
 
 		// that's where some crazy magic appears!
 		// parses module code and injects it inside `body` or `run`
 		_exec: function () {
 			var vars = '';
+			var names = [];
 
 			console.log('EXEC DEPS: ', this._depTable, this.path);
 			for (var modulePath in this._depTable) {
@@ -322,17 +347,23 @@
 				if (instance) {
 					var varName = this._depTable[modulePath].alias || modulePath;
 					console.log('VAR NAME: ', varName);
+					if (varName) names.push(varName);
 					vars += ['var ', varName, ' = JSON.parse(\'', JSON.stringify(instance, transformFuncs), '\', function (key, value) { if (value && typeof value === "string" && value.substr(0,8) == "function") { var startBody = value.indexOf("{") + 1; var endBody = value.lastIndexOf("}"); var startArgs = value.indexOf("(") + 1; var endArgs = value.indexOf(")"); return new Function(value.substring(startArgs, endArgs), value.substring(startBody, endBody)); } return value; });'].join('');
 				} else {
 					return false;
 				}
 			}
 
-			var wrapFn = new Function([vars, ' return (', this._body, ')();'].join(''));
+			console.log('VARS: ', vars);
+			var injecters = names.join(', ');
+			var wrapFn = new Function([vars, ' return (', this._body, ')(', injecters, ');'].join(''));
+			// debugger;
 			console.log('WRAPFN: ', wrapFn);
 			this._instance = wrapFn();
-			mch.emit('wrapped', this.path.toString());
+			names = [];
+			// mch.emit('ready', this);
 
+			// mch.emit('wrapped', this.path.toString());
 		}
 	};
 
