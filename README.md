@@ -8,13 +8,15 @@ Tiny JavaScript _in-browser_ module loader that implements **Chainable Module De
 
 _Melchior_ is the first library that fully implements the [Draft](https://github.com/tjwudi/wd.js/wiki/module-loader) proposed by [John Wu](https://github.com/tjwudi) and brings to life **"the most javascripty"** way to configure modules and its dependencies for in-browser use. 
 
-### What's wrong with AMD and CommonJS?
+_Melchior_ does not have dependencies on any JavaScript framework.
 
-Nothing actually and it's more the matter of taste.. but the idea behind _chainable modules_ solves several nasty **AMD** patterns like long lines of declaring dependencies (:tired_face:) and provides simplicity and readability with its clean syntax and as **CommonJS** is more good for non-browser environments, _chained requires_ fit perfectly for in-browser use cases.
+_Melchior_ is small with around 3KB when minified.
 
-As for short name **CMD** might be not a good choice because of already existing [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), so alternatives like **CnMD** or **ChainMD** are possible options.
+## What's wrong with AMD and CommonJS?
 
-Melchior.js is small with around 3KB when minified.
+Nothing actually and it's more the matter of taste.. but the idea behind _chainable modules_ solves several nasty **AMD** patterns like long lines of declaring dependencies :tired_face: and provides simplicity and readability with its' visual-friendly and clean syntax. As **CommonJS** is more good for non-browser environments, _chained requires_ fit perfectly for in-browser use cases. 
+
+As for the draft's short name, **CMD** might be not a good choice because of already existing [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), so alternatives like **CnMD** or **ChainMD** are possible options.
 
 ## Install
 
