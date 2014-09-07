@@ -8,9 +8,7 @@ Tiny JavaScript _in-browser_ module loader that implements **Chainable Module De
 
 _Melchior_ is the first library that fully implements the [Draft](https://github.com/tjwudi/wd.js/wiki/module-loader) proposed by [John Wu](https://github.com/tjwudi) and brings to life **"the most javascripty"** way to configure modules and its dependencies for in-browser use. 
 
-_Melchior_ does not have dependencies on any JavaScript framework.
-
-_Melchior_ is small with around 3KB when minified.
+_Melchior_ does not have dependencies on any JavaScript framework. It is small with around 3KB when minified.
 
 ## What's wrong with AMD and CommonJS?
 
