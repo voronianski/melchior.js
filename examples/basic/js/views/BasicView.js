@@ -2,7 +2,7 @@ melchiorjs.module('BasicView')
 
 // provide any alias for module as second param
 .require('jQuery', 'jQ')
-.require('_', 'u')
+.require('underscore', 'u')
 
 /*global jQ, u*/
 .body(function () {

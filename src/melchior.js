@@ -75,7 +75,7 @@
 		if (config.deps) {
 			mch._injectMain(cfg.deps[0]);
 		}
-		cfg.paths = config.paths;
+		cfg = config;
 
 		if (cfg.paths) {
 			eachProp(cfg.paths, function (url, path) {
@@ -85,12 +85,13 @@
 					if (script.content.match(/(melchiorjs)/g)) {
 						js += script.content;
 					} else {
+						var exports = hasProp(cfg.shim, path) ? cfg.shim[path].exports : path;
 						js += [
 							script.content,
 							';melchiorjs.module("',
 							path,
 							'").body(function () {',
-							' return ', path,
+							' return ', exports,
 							';});'
 						].join('');
 					}
