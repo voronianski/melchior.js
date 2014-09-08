@@ -83,6 +83,14 @@
 
 		if (cfg.paths) {
 			eachProp(cfg.paths, function (url, path) {
+				// support extenstion ommited paths
+				var routes = url.split('/');
+				var lastIndex = routes.length - 1;
+				if (!jsSuffixRegExp.test(routes[lastIndex])) {
+					routes[lastIndex] += '.js';
+					url = routes.join('/');
+				}
+
 				mch.load(url, function (script) {
 					var js = '';
 					script.content = script.content.replace(commentRegExp, '');
