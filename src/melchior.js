@@ -4,6 +4,8 @@
 	var cfg = {};
 	var head = document.getElementsByTagName('head')[0];
 	var commentRegExp = /(?:\/\*(?:[\s\S]*?)\*\/)|(?:^\s*\/\/(?:.*)$)/gm;
+	var jsSuffixRegExp = /\.js$/;
+
 
 	// Related to bug - http://dev.jquery.com/ticket/2709
 	// If <BASE> tag is in play, using appendChild is a problem for IE6.
@@ -61,7 +63,7 @@
 	eachReverse(getScripts(), function (script) {
 		var mainScript = script.getAttribute('data-main');
 		if (mainScript) {
-			cfg.deps = [mainScript];
+			cfg.main = mainScript;
 			return true;
 		}
 	});
@@ -72,10 +74,12 @@
 	// 4. Inject dependencies as variables
 
 	var mch = global.melchiorjs = function (config) {
-		if (config.deps) {
-			mch._injectMain(cfg.deps[0]);
+		if (config.main) {
+			mch._injectMain(cfg.main);
 		}
+
 		cfg = config;
+		cfg.timeout = cfg.timeout || 5000;
 
 		if (cfg.paths) {
 			eachProp(cfg.paths, function (url, path) {
@@ -92,7 +96,7 @@
 							path,
 							'").body(function () {',
 							' return ', exports,
-							';});'
+							'; });'
 						].join('');
 					}
 					mch._injectScript(js);
@@ -158,10 +162,19 @@
 						type: xhr.getResponseHeader('content-type')
 					});
 				} else {
-					new Error(xhr.statusText);
+					throw new Error('Cannot load module for url: ' + url);
 				}
 			}
 		};
+
+		// adding configurable timeout
+		// XHR never timeouts by default
+		setTimeout(function () {
+			if (xhr.readyState < 4) {
+				xhr.abort();
+			}
+		}, cfg.timeout);
+
 		xhr.send();
 	};
 
