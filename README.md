@@ -10,13 +10,13 @@ _Melchior_ is the first library that fully implements the [Draft](https://github
 
 _Melchior_ does not have dependencies on any JavaScript framework. It is small with around 3KB when minified.
 
-## What's wrong with AMD and CommonJS?
+## An alternative to AMD
 
-Nothing actually and it's more the matter of taste.. but the [idea](http://dailyjs.com/2014/07/14/alternative-module-api/) behind _chainable modules_ solves several nasty **AMD** patterns like long lines of declaring dependencies :tired_face: and provides simplicity and readability with its' visual-friendly and clean syntax :sunglasses:. 
+The [idea](http://dailyjs.com/2014/07/14/alternative-module-api/) behind _chainable modules_ solves several nasty **AMD** patterns like long lines of declaring dependencies (:tired_face:) and provides simplicity and readability with its' visual-friendly and clean syntax. 
 
-As **CommonJS** is more good for non-browser environments, _chained requires_ fit perfectly for in-browser use cases. 
+As **CommonJS** is more good for non-browser environments, _chaining modules with requires_ fit perfectly for in-browser use cases. 
 
-As for the draft's short name, **CMD** might be not a good choice because of already existing [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), so alternatives like **ChMD** or **ChainMD** are possible options.
+You may notice that **CMD** might be not a good choice for short namr because there is already existing [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), that's why alternatives like **ChMD** or **ChainMD** are possible options.
 
 ## Install
 
