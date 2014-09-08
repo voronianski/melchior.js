@@ -16,7 +16,7 @@ The [idea](http://dailyjs.com/2014/07/14/alternative-module-api/) behind _chaina
 
 As **CommonJS** is more good for non-browser environments, _chaining modules with requires_ fit perfectly for in-browser use cases. 
 
-You may notice that **CMD** might be not a good choice for short namr because there is already existing [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), that's why alternatives like **ChMD** or **ChainMD** are possible options.
+You may notice that **CMD** might be not a good choice for short name because there is already existing [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), that's why alternatives like **ChMD** or **ChainMD** are possible options.
 
 ## Install
 
