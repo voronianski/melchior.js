@@ -16,7 +16,7 @@ The [idea](http://dailyjs.com/2014/07/14/alternative-module-api/) behind _chaina
 
 As **CommonJS** is more good for non-browser environments, _chaining modules with requires_ fit perfectly for in-browser use cases. 
 
-You may notice that **CMD** might be not a good choice for short name because there is already existing [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), that's why alternatives like **ChMD** or **ChainMD** are possible options.
+You may notice that **CMD** might be not a good choice for short name because there is already [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), that's why alternatives like **ChMD** or **ChainMD** are possible options.
 
 ## Install
 
@@ -29,7 +29,7 @@ bower install melchiorjs
 ## Usage
 
 ```javascript
-melchiorjs.module('name')
+melchior.module('name')
 .require('depOne')
 .require('depTwo')
 .body(function () {
@@ -54,7 +54,7 @@ Firstly it is necessary to specify entry point for all of your modules:
 Melchior provides special ``.config()`` where you need to specify paths for all libs that you want to use:
 
 ```javascript
-melchiorjs.config({
+melchior.config({
 	paths: {
 		'jQuery': 'path/to/jquery',
 		'underscore': '/path/to/underscore',
@@ -66,7 +66,7 @@ melchiorjs.config({
 Now you will be able to require dependencies. Also it is allowed to specify an alias for dependency as the second parameter:
 
 ```javascript
-melchiorjs
+melchior
 .require('jQuery', '$')
 .require('underscore', '_')
 .require('myModule')
