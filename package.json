@@ -34,22 +34,6 @@
     "karma-tape-reporter": "^1.0.1",
     "morgan": "^1.3.0"
   },
-  "testling": {
-    "files": [
-      "src/melchior.js",
-      "test/*.spec.js"
-    ],
-    "browsers": [
-      "ie/6..latest",
-      "chrome/22..latest",
-      "firefox/16..latest",
-      "safari/latest",
-      "opera/11.0..latest",
-      "iphone/latest",
-      "ipad/latest",
-      "android-browser/latest"
-    ]
-  },
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
   },
