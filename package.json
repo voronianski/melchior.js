@@ -40,7 +40,14 @@
       "test/*.spec.js"
     ],
     "browsers": [
-      "chrome/22..latest"
+      "ie/6..latest",
+      "chrome/22..latest",
+      "firefox/16..latest",
+      "safari/latest",
+      "opera/11.0..latest",
+      "iphone/latest",
+      "ipad/latest",
+      "android-browser/latest"
     ]
   },
   "scripts": {
