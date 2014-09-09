@@ -8,13 +8,25 @@ module.exports = function (config) {
 	// Browsers to run on Sauce Labs
 	// https://saucelabs.com/platforms
 	var customLaunchers = {
-		'SL_Chrome': {
+		'SL_Chrome_Mac': {
 			base: 'SauceLabs',
-			browserName: 'chrome'
+			browserName: 'chrome',
+			platform: 'OS X 10.9'
 		},
-		'SL_Firefox': {
+		'SL_Chrome_Win': {
 			base: 'SauceLabs',
-			browserName: 'firefox'
+			browserName: 'chrome',
+			platform: 'Windows 7'
+		},
+		'SL_Firefox_Mac': {
+			base: 'SauceLabs',
+			browserName: 'firefox',
+			platform: 'OS X 10.9'
+		},
+		'SL_Firefox_Win': {
+			base: 'SauceLabs',
+			browserName: 'firefox',
+			platform: 'Windows 7'
 		},
 		'SL_Safari': {
 			base: 'SauceLabs',
@@ -35,13 +47,13 @@ module.exports = function (config) {
 		'SL_IE_11': {
 			base: 'SauceLabs',
 			browserName: 'internet explorer',
-			platform: 'Windows 8.1',
+			platform: 'Windows 7',
 			version: '11'
 		},
 		'SL_IE_10': {
 			base: 'SauceLabs',
 			browserName: 'internet explorer',
-			platform: 'Windows 8',
+			platform: 'Windows 7',
 			version: '10'
 		},
 		'SL_IE_9': {
@@ -92,7 +104,7 @@ module.exports = function (config) {
 		},
 
 		// Increase timeout in case connection in CI is slow
-		captureTimeout: 120000,
+		captureTimeout: 720000,
 
 		customLaunchers: customLaunchers,
 
