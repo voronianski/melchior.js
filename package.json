@@ -1,6 +1,6 @@
 {
   "name": "melchiorjs",
-  "version": "0.0.2-alpha",
+  "version": "0.1.0",
   "description": "Chainable Module Definition (CMD) in-browser module loader",
   "main": "src/melchior.js",
   "keywords": [
