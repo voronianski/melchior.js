@@ -80,6 +80,7 @@
 
 		cfg = config;
 		cfg.timeout = cfg.timeout || 5000;
+		cfg.shim = cfg.shim || {};
 
 		if (cfg.paths) {
 			eachProp(cfg.paths, function (url, path) {
@@ -211,15 +212,15 @@
 	mch._getModuleInstance = function(modulePath) {
 		if (!modulePath) {
 			// should provide modulePath
-			console.log('--- no path provided', modulePath);
+			// console.log('--- no path provided', modulePath);
 		} else if (!mch._moduleTable[modulePath]) {
 			// module not registered
-			console.log('--- not registered', modulePath);
+			// console.log('--- not registered', modulePath);
 		} else if (!mch._moduleTable[modulePath]._loaded) {
 			// module not loaded
-			console.log('--- not loaded', modulePath, mch._moduleTable);
+			// console.log('--- not loaded', modulePath, mch._moduleTable);
 		} else {
-			console.log('--- boom', modulePath, mch._moduleTable, mch._moduleTable[modulePath]);
+			// console.log('--- boom', modulePath, mch._moduleTable, mch._moduleTable[modulePath]);
 			return mch._moduleTable[modulePath]._instance;
 		}
 	};
