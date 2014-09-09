@@ -16,9 +16,7 @@ _Melchior_ does not have dependencies on any JavaScript framework. It is small w
 
 The [idea](http://dailyjs.com/2014/07/14/alternative-module-api/) behind _chainable modules_ solves several nasty **AMD** patterns like long lines of declaring dependencies (:tired_face:) and provides simplicity and readability with its' visual-friendly and clean syntax. 
 
-As **CommonJS** is more good for non-browser environments, _chaining modules with requires_ fit perfectly for in-browser use cases. 
-
-You may notice that **CMD** might be not a good choice for short name because there is already [Common Module Definition](https://github.com/cmdjs/specification/blob/master/draft/module.md), that's why alternatives like **ChMD** or **ChainMD** are possible options.
+As **CommonJS** is more good for non-browser environments, _chaining modules with requires_ fit perfectly for in-browser use cases.
 
 ## Install
 
