@@ -10,7 +10,7 @@ _Melchior_ is the first library that fully implements the [Draft](https://github
 
 _Melchior_ does not have dependencies on any JavaScript framework. It is small with around 3KB when minified.
 
-![Sauce Test Status](https://saucelabs.com/browser-matrix/voronianski.svg)]
+![Sauce Test Status](https://saucelabs.com/browser-matrix/voronianski.svg)
 
 ## An alternative to AMD
 
