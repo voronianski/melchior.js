@@ -46,6 +46,10 @@ describe('melchiorjs', function () {
 			expect(module._depLength).toEqual(0);
 		});
 
+		it('should be loaded when body is executed', function () {
+			expect(module._loaded).toBeTruthy();
+		});
+
 		it('should have executed instance', function () {
 			expect(module._instance['multiply']).toBeDefined();
 		});
@@ -69,6 +73,10 @@ describe('melchiorjs', function () {
 
 			it('should add alias for third-party inside module', function () {
 				expect(module._depTable['Multiplier'].alias).toEqual('M');
+			});
+
+			it('should be loaded when body is executed', function () {
+				expect(module._loaded).toBeTruthy();
 			});
 
 			it('should have dependencies', function () {
@@ -106,6 +114,10 @@ describe('melchiorjs', function () {
 			expect(module).toBeDefined();
 		});
 
+		it('should be loaded when body is executed', function () {
+			expect(module._loaded).toBeTruthy();
+		});
+
 		it('should have dependencies', function () {
 			expect(module._depLength).toEqual(1);
 		});
@@ -114,16 +126,16 @@ describe('melchiorjs', function () {
 			expect(thirdParty).toBeDefined();
 		});
 
+		it('should be flag third-party as loaded too', function () {
+			expect(thirdParty._loaded).toBeTruthy();
+		});
+
 		it('should add alias for third-party inside module', function () {
 			expect(module._depTable['jQuery'].alias).toEqual('S');
 		});
 
 		it('should have executed instance', function () {
 			expect(module._instance).toBeDefined();
-		});
-
-		it('should have an instance of selector', function () {
-			expect(module._instance.selector).toEqual('body');
 		});
 	});
 });
