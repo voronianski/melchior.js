@@ -29,12 +29,6 @@ module.exports = function (config) {
 			platform: 'OS X 10.9',
 			version: '7.1'
 		},
-		'SL_iPad_Safari': {
-			base: 'SauceLabs',
-			browserName: 'ipad',
-			platform: 'OS X 10.9',
-			version: '7.0'
-		},
 		'SL_Android': {
 			base: 'SauceLabs',
 			browserName: 'android',
