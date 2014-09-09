@@ -58,17 +58,15 @@ Melchior provides special ``.config()`` where you need to specify paths for all 
 ```javascript
 melchiorjs.config({
 	paths: {
-		// when path name the same as global that lib exposes
+		// when path is the same as global that lib exposes
 		// it saves from optional `shim` property on config
 		'jQuery': 'path/to/jquery',
-
-		// `underscore` will need a shim
 		'underscore': '/path/to/underscore',
 		'myModule': '/path/to/myModule'
 	},
 
-	// provide shim to non-melchior modules
-	// declare the name of global variable returned
+	// provide shim to non-melchior modules and
+	// declare the global returned by library
 	shim: {
 		underscore: {
 			exports: '_'
