@@ -133,9 +133,5 @@ describe('melchiorjs', function () {
 		it('should add alias for third-party inside module', function () {
 			expect(module._depTable['jQuery'].alias).toEqual('S');
 		});
-
-		it('should have executed instance', function () {
-			expect(module._instance).toBeDefined();
-		});
 	});
 });
