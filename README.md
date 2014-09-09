@@ -10,6 +10,8 @@ _Melchior_ is the first library that fully implements the [Draft](https://github
 
 _Melchior_ does not have dependencies on any JavaScript framework. It is small with around 3KB when minified.
 
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/voronianski.svg)](https://saucelabs.com/u/voronianski)
+
 ## An alternative to AMD
 
 The [idea](http://dailyjs.com/2014/07/14/alternative-module-api/) behind _chainable modules_ solves several nasty **AMD** patterns like long lines of declaring dependencies (:tired_face:) and provides simplicity and readability with its' visual-friendly and clean syntax. 
