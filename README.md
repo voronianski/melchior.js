@@ -65,7 +65,7 @@ melchiorjs.config({
 		'myModule': '/path/to/myModule'
 	},
 
-	// provide shim to non-melchior modules and
+	// provide shim to non-melchior modules
 	// declare the global returned by library
 	shim: {
 		underscore: {
