@@ -89,7 +89,7 @@ describe('melchiorjs', function () {
 		});
 	});
 
-	xdescribe('when using config and third-party libs', function () {
+	describe('when using config and third-party libs', function () {
 		var thirdParty;
 		var loadFlag = false;
 
