@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>AngularJS example - MelchiorJS</title>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+	<style>
+		body {
+			background: #F5E0E1;
+			padding: 10px 50px;
+			font-size: .95em;
+		}
+	</style>
+</head>
+<body>
+	<h1>Angular.js demo</h1>
+
+	<p>Simple angular.js application with <code>ngRoute</code> dependency.</p>
+
+	<p ng-cloak>This data is from <code>rootScope</code>: {{version}}</p>
+
+	<!-- Angular template views  -->
+	<script type="text/ng-template" id="MainView">
+		<h1>Main view header</h1>
+	</script>
+
+	<!-- Melchior entry point -->
+	<script src="../../src/melchior.js" type="text/javascript" data-main="js/main.js"></script>
+</body>
+</html>

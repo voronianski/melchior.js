@@ -3,9 +3,7 @@
 
 	var cfg = {};
 	var head = document.getElementsByTagName('head')[0];
-	var commentRegExp = /(?:\/\*(?:[\s\S]*?)\*\/)|(?:^\s*\/\/(?:.*)$)/gm;
 	var jsSuffixRegExp = /\.js$/;
-
 
 	// Related to bug - http://dev.jquery.com/ticket/2709
 	// If <BASE> tag is in play, using appendChild is a problem for IE6.
@@ -41,6 +39,10 @@
 				}
 			}
 		}
+	}
+
+	function isArray (val) {
+		return Object.prototype.toString.call(val) === '[object Array]';
 	}
 
 	function hasProp (obj, prop) {
@@ -94,11 +96,18 @@
 
 				mch.load(url, function (script) {
 					var js = '';
-					script.content = script.content.replace(commentRegExp, '');
 					if (script.content.match(/(melchiorjs)/g)) {
 						js += script.content;
 					} else {
-						var exports = hasProp(cfg.shim, path) ? cfg.shim[path].exports : path;
+						var hasShim = hasProp(cfg.shim, path);
+						var exports = hasShim && cfg.shim[path].exports ? cfg.shim[path].exports : path;
+						var depends = hasShim && cfg.shim[path].deps ? cfg.shim[path].deps : [];
+						var requires = '';
+
+						if (isArray(depends) && depends.length > 0) {
+							requires += '.require("' + depends.join('").require("') + '")';
+						}
+
 						js += [
 							script.content,
 							';melchiorjs.module("',

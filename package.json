@@ -37,7 +37,8 @@
     "network-address": "0.0.4"
   },
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start karma.conf-ci.js"
+    "test": "./node_modules/karma/bin/karma start karma.conf-ci.js",
+    "karma": "karma start --single-run --browsers PhantomJS"
   },
   "repository": {
     "type": "git",
