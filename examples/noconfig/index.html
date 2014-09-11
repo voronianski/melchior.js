@@ -33,6 +33,11 @@
 		return _;
 	});
 
+	melchiorjs.module('core.foo')
+	.body(function () {
+		return {};
+	});
+
 	melchiorjs.module('BasicView')
 	.require('jQuery', 'jQ')
 	.require('_')
@@ -52,7 +57,9 @@
 
 	melchiorjs.module('myApp')
 	.require('BasicView')
+	.require('core.foo')
 	.run(function () {
+		debugger
 		BasicView.render();
 	});
 

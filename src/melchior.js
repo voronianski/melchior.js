@@ -331,6 +331,11 @@
 				console.log('INSTANCE: ', instance);
 				if (instance) {
 					var varName = self._depTable[modulePath].alias || modulePath;
+					// support for dot notation modules, e.g. `core.foo`
+					if (/(\.)/.test(varName)) {
+						var l = varName.split('.');
+						varName = l[l.length-1];
+					}
 					deps.push({varName: varName, instance: instance});
 				} else {
 					return false;
