@@ -30,8 +30,10 @@ bower install melchiorjs
 
 ```javascript
 melchiorjs.module('name')
+
 .require('depOne')
 .require('depTwo')
+
 .body(function () {
 	depOne.doSomething();
 	depTwo.doSomething();
@@ -76,10 +78,12 @@ melchiorjs.config({
 Now you will be able to require dependencies. Also it is allowed to specify an alias for dependency as the second parameter:
 
 ```javascript
-melchiorjs
+melchiorjs.module('app')
+
 .require('jQuery', '$')
 .require('underscore', '_')
 .require('myModule')
+
 .run(function () {
 	$.get('/api/books').done(function (books) {
 		var filtered = _(books).sortBy('title');
