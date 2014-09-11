@@ -19,6 +19,12 @@
 
 	<p ng-cloak>This data is from <code>rootScope</code>: {{version}}</p>
 
+	<div ng-controller="MainController">
+		<div ng-cloak>
+			{{name}}
+		</div>
+	</div>
+
 	<!-- Angular template views  -->
 	<script type="text/ng-template" id="MainView">
 		<h1>Main view header</h1>

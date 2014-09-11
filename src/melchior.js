@@ -221,15 +221,15 @@
 	mch._getModuleInstance = function(modulePath) {
 		if (!modulePath) {
 			// should provide modulePath
-			// console.log('--- no path provided', modulePath);
+			console.log('--- no path provided', modulePath);
 		} else if (!mch._moduleTable[modulePath]) {
 			// module not registered
-			// console.log('--- not registered', modulePath);
+			console.log('--- not registered', modulePath);
 		} else if (!mch._moduleTable[modulePath]._loaded) {
 			// module not loaded
-			// console.log('--- not loaded', modulePath, mch._moduleTable);
+			console.log('--- not loaded', modulePath, mch._moduleTable);
 		} else {
-			// console.log('--- boom', modulePath, mch._moduleTable, mch._moduleTable[modulePath]);
+			console.log('--- boom', modulePath, mch._moduleTable, mch._moduleTable[modulePath]);
 			return mch._moduleTable[modulePath]._instance;
 		}
 	};
@@ -280,6 +280,7 @@
 		},
 
 		run: function (fn) {
+			console.log('RUN:')
 			if (fn) {
 				this._body = fn;
 			}
@@ -306,11 +307,13 @@
 			if (self._loaded) {
 				self._exec();
 			} else {
+				console.log('LISTEN TO READY FROM: ', self.path);
 				mch.on('ready', function (mod) {
+					console.log(mod.path, self.path);
 					if (mod.path === self.path) {
 						setTimeout(function () {
 							self._exec();
-						}, 0);
+						}, 100);
 					}
 				});
 			}
@@ -322,8 +325,11 @@
 			var self = this;
 			var deps = [];
 
+			console.log('EXEC MODULE: ', self.path);
 			for (var modulePath in self._depTable) {
+				console.log('MODULE PATH: ', modulePath);
 				var instance = mch._getModuleInstance(modulePath);
+				console.log('INSTANCE: ', instance);
 				if (instance) {
 					var varName = self._depTable[modulePath].alias || modulePath;
 					deps.push({varName: varName, instance: instance});
@@ -337,6 +343,7 @@
 				each(deps, function (dep) {
 					scope[dep.varName] = dep.instance;
 				});
+				console.log(self._body);
 				return (self._body)();
 			};
 			self._instance = wrapFn.call(global);

@@ -3,13 +3,14 @@ melchiorjs.config({
 		'angular': 'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular',
 		// 'ngRoute': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-route.js',
 		'core.mainController': 'js/controllers/MainController',
-		'app': 'js/app'
+		'core.app': 'js/app'
 	}
 })
 
 .module('core')
 
-.require('app')
+.require('core.app', 'app')
+.require('core.mainController')
 
 /*global app*/
 .run(function () {
