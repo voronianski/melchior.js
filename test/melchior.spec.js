@@ -63,8 +63,8 @@ describe('melchiorjs', function () {
 				var bodyFn = function () {
 					return M.multiply(10);
 				};
-				melchiorjs.module('User').require('Multiplier', 'M').body(bodyFn);
-				module = melchiorjs._moduleTable['User']
+				melchiorjs.module('core.User').require('Multiplier', 'M').body(bodyFn);
+				module = melchiorjs._moduleTable['core.User']
 			});
 
 			it('should be added to global module table', function () {
