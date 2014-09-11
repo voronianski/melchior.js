@@ -1,16 +1,19 @@
 melchiorjs.module('controllers')
 
 .require('angular')
-.require('MainController')
+.require('MainController', 'Main')
+.require('MenuController', 'Menu')
+.require('LangController', 'Lang')
 
-/*global angular, MainController*/
+/*global angular, Main, Menu, Lang*/
 .body(function () {
 	'use strict';
 
-	console.log('Controllers');
 	var ctrls = angular.module('controllers', []);
 
-	ctrls.controller('MainController', MainController);
+	ctrls.controller('MainController', Main);
+	ctrls.controller('MenuController', Menu);
+	ctrls.controller('LangController', Lang);
 
 	return ctrls;
 });
