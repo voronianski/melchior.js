@@ -19,49 +19,11 @@
 
 	<ul id="list"></ul>
 
+	<script src="../../src/melchior.js"></script>
 	<script src="../basic/js/vendor/jquery.js"></script>
 	<script src="../basic/js/vendor/underscore.js"></script>
-	<script src="../../src/melchior.js"></script>
-	<script>
-	melchiorjs.module('jQuery')
-	.body(function () {
-		return jQuery;
-	});
-
-	melchiorjs.module('_')
-	.body(function () {
-		return _;
-	});
-
-	melchiorjs.module('core.foo')
-	.body(function () {
-		return {};
-	});
-
-	melchiorjs.module('BasicView')
-	.require('jQuery', 'jQ')
-	.require('_')
-	.body(function () {
-
-		return {
-			render: function () {
-				var books = [{title: 'Princess Maia'}, {title: 'Princess Noori'}, {title: 'Princess Gita'}];
-				var $listWrap = jQ('#list');
-
-				_(books).each(function (book) {
-					$listWrap.append('<li>' + book.title + '</li>');
-				});
-			}
-		};
-	});
-
-	melchiorjs.module('myApp')
-	.require('BasicView')
-	.require('core.foo')
-	.run(function () {
-		BasicView.render();
-	});
-
-	</script>
+	<script src="js/views/basic.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="js/core.js"></script>
 </body>
 </html>
