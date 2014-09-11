@@ -1,0 +1,4 @@
+examples
+.editorconfig
+.travis.yml
+karma-conf-ci.js
