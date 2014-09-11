@@ -1,22 +1,29 @@
 melchiorjs.module('app')
 
 .require('angular')
+.require('ngRoute')
 .require('controllers')
 
 /*global angular*/
 .body(function () {
 	'use strict';
 
-	var app = angular.module('app', ['controllers']);
+	var app = angular.module('app', ['ngRoute', 'controllers']);
 
 	app.boot = function () {
-		console.log('app boot');
 		angular.bootstrap(document, ['app']);
 	};
 
+	app.config(['$routeProvider',
+		function ($routeProvider, $locationProvider) {
+			$routeProvider
+				.when('/all', { templateUrl: 'MainView', controller: 'MainController' })
+				.otherwise({ redirectTo: '/' });
+		}
+	]);
+
 	app.run(function ($rootScope) {
-		console.log('app run');
-		$rootScope.version = '222';
+		$rootScope.version = '0.1.0-pre';
 	});
 
 	return app;

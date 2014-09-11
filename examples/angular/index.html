@@ -18,16 +18,14 @@
 	<p>Simple angular.js application with <code>ngRoute</code> dependency.</p>
 
 	<p ng-cloak>This data is from <code>rootScope</code>: {{version}}</p>
+	<a href="#/all">All</a>
 
-	<div ng-controller="MainController">
-		<div ng-cloak>
-			{{name}}
-		</div>
-	</div>
+	<div ng-view></div>
 
 	<!-- Angular template views  -->
 	<script type="text/ng-template" id="MainView">
 		<h1>Main view header</h1>
+		<p>{{name}}</p>
 	</script>
 
 	<!-- Melchior entry point -->

@@ -106,16 +106,27 @@
 
 						if (isArray(depends) && depends.length > 0) {
 							requires += '.require("' + depends.join('").require("') + '")';
+							js += [
+								';melchiorjs.module("',
+								path,
+								'")',
+								requires,
+								'.body(function () {',
+								script.content,
+								' ;return',
+								'(typeof ', exports, ' === "undefined" ? true : ', exports, ');',
+								'});'
+							].join('');
+						} else {
+							js += [
+								script.content,
+								';melchiorjs.module("',
+								path,
+								'").body(function () {',
+								' return ', exports,
+								'; });'
+							].join('');
 						}
-
-						js += [
-							script.content,
-							';melchiorjs.module("',
-							path,
-							'").body(function () {',
-							' return ', exports,
-							'; });'
-						].join('');
 					}
 					mch._injectScript(js);
 				});
