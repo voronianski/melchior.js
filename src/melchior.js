@@ -280,7 +280,6 @@
 		},
 
 		run: function (fn) {
-			console.log('RUN:')
 			if (fn) {
 				this._body = fn;
 			}

@@ -1,12 +1,13 @@
-melchiorjs.module('core.app')
+melchiorjs.module('app')
 
 .require('angular')
-// .require('ngRoute')
+.require('controllers')
 
 /*global angular*/
 .body(function () {
-	console.log('app', angular);
-	var app = angular.module('app', []);
+	'use strict';
+
+	var app = angular.module('app', ['controllers']);
 
 	app.boot = function () {
 		console.log('app boot');
