@@ -107,9 +107,7 @@
 						if (isArray(depends) && depends.length > 0) {
 							requires += '.require("' + depends.join('").require("') + '")';
 							js += [
-								';melchiorjs.module("',
-								path,
-								'")',
+								';melchiorjs.module("', path, '")',
 								requires,
 								'.body(function () {',
 								script.content,
@@ -120,8 +118,7 @@
 						} else {
 							js += [
 								script.content,
-								';melchiorjs.module("',
-								path,
+								';melchiorjs.module("', path,
 								'").body(function () {',
 								' return ', exports,
 								'; });'
