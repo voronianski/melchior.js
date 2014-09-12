@@ -352,7 +352,7 @@
 				});
 				return (self._body)();
 			};
-			self._instance = wrapFn.call(global);
+			self._instance = wrapFn.call(global) || '__executed__';
 		}
 	};
 
