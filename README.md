@@ -1,6 +1,5 @@
 # MelchiorJS
 
-[![Progress](http://img.shields.io/badge/Status-In Progress-red.svg?style=flat-square)](#usage)
 [![build status](http://img.shields.io/travis/voronianski/melchior.js.svg?style=flat-square)](https://travis-ci.org/voronianski/melchior.js)
 
 > Tiny JavaScript _in-browser_ module loader that implements **Chainable Module Definition** API.
@@ -9,7 +8,7 @@ _Melchior_ is the first library that fully implements the [Draft](https://github
 
 _Melchior_ does not have dependencies on any JavaScript framework. It is small with around 3KB when minified.
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/voronianski.svg)](http://saucelabs.com)
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/voronianski.svg)](https://travis-ci.org/voronianski/melchior.js)
 
 ## An alternative to AMD and RequireJS
 

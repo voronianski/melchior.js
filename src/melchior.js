@@ -70,11 +70,6 @@
 		}
 	});
 
-	// 1. Pass main.js to dependency tree
-	// 2. Execute async fetching of scripts in require method
-	// 3. When all required deps are ready run body/run method
-	// 4. Inject dependencies as variables
-
 	var mch = global.melchiorjs = function (config) {
 		if (config.main) {
 			mch._injectMain(cfg.main);
@@ -228,16 +223,12 @@
 
 	mch._getModuleInstance = function(modulePath) {
 		if (!modulePath) {
-			// should provide modulePath
-			// console.log('--- no path provided', modulePath);
+			throw new Error('Module path is not provided');
 		} else if (!mch._moduleTable[modulePath]) {
-			// module not registered
-			// console.log('--- not registered', modulePath);
+			throw new Error('Module "' + modulePath+ '" is not registered');
 		} else if (!mch._moduleTable[modulePath]._loaded) {
-			// module not loaded
-			// console.log('--- not loaded', modulePath, mch._moduleTable);
+			throw new Error('Module "' + modulePath+ '" is not loaded');
 		} else {
-			// console.log('--- boom', modulePath, mch._moduleTable, mch._moduleTable[modulePath]);
 			return mch._moduleTable[modulePath]._instance;
 		}
 	};
