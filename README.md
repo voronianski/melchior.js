@@ -1,9 +1,7 @@
 # MelchiorJS
 
-[![NPM version](http://img.shields.io/badge/Status-In Progress-red.svg?style=flat-square)](#usage)
-[![NPM version](http://img.shields.io/badge/Bower-0.1.0-yellow.svg?style=flat-square)](#usage)
+[![Progress](http://img.shields.io/badge/Status-In Progress-red.svg?style=flat-square)](#usage)
 [![build status](http://img.shields.io/travis/voronianski/melchior.js.svg?style=flat-square)](https://travis-ci.org/voronianski/melchior.js)
-[![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg?style=flat-square)](#license)
 
 > Tiny JavaScript _in-browser_ module loader that implements **Chainable Module Definition** API.
 
@@ -29,15 +27,17 @@ bower install melchiorjs
 
 ## Usage
 
-```javascript
-melchiorjs.module('name')
+Common _Melchior_ module consists of the several parts and may look as follows:
 
-.require('depOne')
-.require('depTwo')
+```javascript
+melchiorjs.module('yourModule')
+
+.require('dependencyUno')
+.require('dependencyDuo')
 
 .body(function () {
-	depOne.doSomething();
-	depTwo.doSomething();
+	dependencyUno.doSomething();
+	dependencyDuo.doSomething();
 
 	return {
 		method: function () { ... },
