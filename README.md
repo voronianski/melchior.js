@@ -114,7 +114,7 @@ Initialize dependency script loader that will asynchronously load the modules fr
 
 - `paths` - hash-map like object of scripts that will be loaded. Keys are module names and values are paths to the files.
 
-- `shim` - object where third-party libs and traditional "browser globals" scripts are configured to declare the dependencies and set the value returned by module.
+- `shim` - object where third-party libs and traditional "browser globals" scripts are configured to declare the dependencies and set the value returned by module. There're two options for every shim object `deps` which is array of dependencies (module names strings separated by coma) and `exports` - string representative of global variable exposed by script.
 
 - `timeout` - `ms` amount of time to wait before XHR'ed script timeouts, default `5000`
 
@@ -226,7 +226,15 @@ melchiorjs.module('core')
 
 ## Contribution
 
+Despite that _Melchior_ is small and has very minimalistic API it may be not perfect yet. So if you found a bug or have an idea how to make it better do not hesitate to create an [issue](https://github.com/voronianski/melchior.js/issues) or even send a [pull request](https://github.com/voronianski/melchior.js/pulls).
+
 ## References
+
+Thanks [John Wu](https://github.com/tjwudi) for amazing idea and inspiration.
+
+Module name is inspired by [Evangelion](http://en.wikipedia.org/wiki/Neon_Genesis_Evangelion)'s MAGI supercomputer. :v:
+
+![Ireul Hacking Magi](http://img1.wikia.nocookie.net/__cb20120311022755/evangelion/images/2/2d/Ireul_Hacking_Magi.png)
 
 ## License
 
