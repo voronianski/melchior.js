@@ -112,11 +112,11 @@ Initialize dependency script loader that will asynchronously load the modules fr
 
 ### Options
 
-- `paths` - hash-map like object of scripts that will be loaded where keys are module names and values are paths to the files.
+- `paths` - hash-map like object of scripts that will be loaded. Keys are module names and values are paths to the files.
 
 - `shim` - object where third-party libs and traditional "browser globals" scripts are configured to declare the dependencies and set the value returned by module.
 
-- `timeout` - ms amount of time to wait before XHR'ed script timeouts, default `5000`
+- `timeout` - `ms` amount of time to wait before XHR'ed script timeouts, default `5000`
 
 _Melchior_ handles not `melchiorjs` modules like third-party libs and frameworks by wrapping them into `melchiorjs.module(pathKey)` **automatically**. If such framework has dependencies and they are properly added to `shim` option _Melchior_ will resolve shim's `deps` as requires to the lib.
 
@@ -141,7 +141,7 @@ melchiorjs.config({
 		},
 
 		// lib exports `_` variable as global
-		// e.g. melchiorjs.module('underscore').body(function() { return _; });
+		// e.g. melchiorjs.module('underscore').body(function() { return _; })
 		underscore: {
 			exports: '_'
 		}
