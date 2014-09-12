@@ -30,12 +30,16 @@ bower install melchiorjs
 Common _Melchior_ module consists of the several parts and may look as follows:
 
 ```javascript
+// create module
 melchiorjs.module('yourModule')
 
+// define dependencies
 .require('dependencyUno')
 .require('dependencyDuo')
 
+// define the module body
 .body(function () {
+	// `dependencyUno` and `dependencyDuo` are available
 	dependencyUno.doSomething();
 	dependencyDuo.doSomething();
 
@@ -46,15 +50,15 @@ melchiorjs.module('yourModule')
 });
 ```
 
-In real world the most likely you will want to use other third-party libs.
+In the real world the most likely you will want to use other third-party libs. _Melchior_ also works as **dependency script loader** and provides similar config syntax as RequireJS does.
 
-Firstly it is necessary to specify entry point for all of your modules:
+Firstly you will need to specify an entry point for all of your modules:
 
 ```html
 <script src="/path/to/melchior.js" data-main="/path/to/entry.js"></script>
 ```
 
-Melchior provides special ``.config()`` where you need to specify paths for all libs that you want to use:
+Inside `entry.js` call `melchiorjs.config()` with `paths` object inside that will include paths to the all libraries that you want to use as _Melchior_ modules.
 
 ```javascript
 melchiorjs.config({
@@ -62,8 +66,9 @@ melchiorjs.config({
 		// when path is the same as global that lib exposes
 		// it saves from optional `shim` property on config
 		'jQuery': 'path/to/jquery',
-		'underscore': '/path/to/underscore',
-		'myModule': '/path/to/myModule'
+		'underscore': 'path/to/underscore',
+		'myModule': 'path/to/myModule',
+		'app': 'path/to/app'
 	},
 
 	// provide shim to non-melchior modules
@@ -76,24 +81,29 @@ melchiorjs.config({
 });
 ```
 
-Now you will be able to require dependencies. Also it is allowed to specify an alias for dependency as the second parameter:
+On more detailed information on how `.config()` works check [documentation](https://github.com/voronianski/melchior.js#configoptions).
+
+From this point you will be able to require dependencies. Modules names and `paths` keys should be the same in order to loader work properly.
 
 ```javascript
 melchiorjs.module('app')
 
+// provide any alias for module as second param
 .require('jQuery', '$')
-.require('underscore', '_')
+.require('underscore', 'fun')
 .require('myModule')
 
 .run(function () {
 	$.get('/api/books').done(function (books) {
-		var filtered = _(books).sortBy('title');
+		var filtered = fun(books).sortBy('title');
 		myModule.doSomethingWithBooks(filtered);
 	});
 });
 ```
 
-## API
+This repo contains a special [examples](https://github.com/voronianski/melchior.js/tree/master/examples) folder where several types of applications using _Melchior_ are presented.
+
+## Documentation
 
 ### config(options)
 
