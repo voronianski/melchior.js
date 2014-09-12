@@ -53,7 +53,7 @@ melchiorjs.module('yourModule')
 
 In the real world the most likely you will want to use other third-party libs. _Melchior_ also works as **dependency script loader** and provides similar config syntax as RequireJS does.
 
-Firstly you will need to specify an entry point for all of your modules:
+Firstly you will need to specify a `data-main` entry point for all of your modules:
 
 ```html
 <script src="/path/to/melchior.js" data-main="/path/to/entry.js"></script>
@@ -107,6 +107,49 @@ This repo contains a special [examples](https://github.com/voronianski/melchior.
 ## Documentation
 
 ### config(options)
+
+Initialize dependency script loader that will asynchronously load the modules from provided paths. All modules are loaded via XHR and then injected as script elements already prepared to use with `melchiorjs`.
+
+### Options
+
+- `paths` - hash-map like object of scripts that will be loaded where keys are module names and values are paths to the files.
+
+- `shim` - object where third-party libs and traditional "browser globals" scripts are configured to declare the dependencies and set the value returned by module.
+
+- `timeout` - ms amount of time to wait before XHR'ed script timeouts, default `5000`
+
+_Melchior_ handles not `melchiorjs` modules like third-party libs and frameworks by wrapping them into `melchiorjs.module(pathKey)` **automatically**. If such framework has dependencies and they are properly added to `shim` option _Melchior_ will resolve shim's `deps` as requires to the lib.
+
+```javascript
+melchiorjs.config({
+	paths: {
+		// path key will be turned to the module name, e.g. melchiorjs.module('angular')
+		'angular': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular',
+		'ngRoute': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-route',
+		'ngResource': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-resource',
+		'underscore': '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore'
+	},
+
+	shim: {
+		// `angular` will be inserted as required dependency
+		// e.g. melchiorjs.module('ngRoute').require('angular').body(...)
+		ngRoute: {
+			deps: ['angular']
+		},
+		ngResource: {
+			deps: ['angular']
+		},
+
+		// lib exports `_` variable as global
+		// e.g. melchiorjs.module('underscore').body(function() { return _; });
+		underscore: {
+			exports: '_'
+		}
+	}
+});
+```
+
+The good example could be an [Angular.js](https://angularjs.org/) [app](https://github.com/voronianski/melchior.js/tree/master/examples/angular). 
 
 ### module(name)
 
@@ -167,7 +210,7 @@ melchiorjs.module('core.doubles')
 
 ### run(fn)
 
-Basically it's the same as `body` but use-cases might be a bit different. Recommended to use as the entry point for other modules.
+Programmatically it's the same as `body` but use-cases might be a bit different. Recommended to use as the entry point for other modules.
 
 ```javascript
 melchiorjs.module('core')
