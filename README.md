@@ -125,7 +125,7 @@ melchiorjs.module('core.utils');
 
 ### require(moduleName, [alias])
 
-Define dependencies for module. Once a dependency is declared, it will be assigned to a variable in the scope of the module body function with the same name as the **module name**. You can use method chaining to declare multiple dependencies.
+Define module dependencies. Once a dependency is declared, it will be assigned to a variable in the scope of the module body with the same name as the **module name**. You can use method chaining to declare multiple dependencies.
 
 ```javascript
 melchiorjs.module('core.utils')
