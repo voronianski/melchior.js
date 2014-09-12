@@ -43,6 +43,7 @@ melchiorjs.module('yourModule')
 	dependencyUno.doSomething();
 	dependencyDuo.doSomething();
 
+	// return methods for other modules
 	return {
 		method: function () { ... },
 		anotherMethod: function () { ... }
@@ -63,8 +64,8 @@ Inside `entry.js` call `melchiorjs.config()` with `paths` object inside that wil
 ```javascript
 melchiorjs.config({
 	paths: {
-		// when path is the same as global that lib exposes
-		// it saves from optional `shim` property on config
+		// path name the same as global that lib exposes
+		// saves from optional `shim` property on config
 		'jQuery': 'path/to/jquery',
 		'underscore': 'path/to/underscore',
 		'myModule': 'path/to/myModule',
@@ -81,9 +82,9 @@ melchiorjs.config({
 });
 ```
 
-On more detailed information on how `.config()` works check [documentation](https://github.com/voronianski/melchior.js#configoptions).
+For more detailed information on how `.config` works check [documentation](https://github.com/voronianski/melchior.js#configoptions).
 
-From this point you will be able to require dependencies. Modules names and `paths` keys should be the same in order to loader work properly.
+From this point you will be able to `.require` dependencies. Modules names and `paths` keys should be the same in order to loader work properly.
 
 ```javascript
 melchiorjs.module('app')
