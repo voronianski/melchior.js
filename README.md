@@ -123,7 +123,8 @@ _Melchior_ handles not `melchiorjs` modules like third-party libs and frameworks
 ```javascript
 melchiorjs.config({
 	paths: {
-		// path key will be turned to the module name, e.g. melchiorjs.module('angular')
+		// path key will be turned to the module name 
+		// e.g. melchiorjs.module('angular')
 		'angular': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular',
 		'ngRoute': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-route',
 		'ngResource': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-resource',
