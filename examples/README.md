@@ -8,7 +8,7 @@ To be able to check working apps you will need to start local server. Firstly ma
 
 Then run `npm install` inside this repo, this will fetch few server dependencies.
 
-Start server with `node server.js` and you should be able to check all of the examples at `localhost:9090`.
+Start server with `node server.js` and check all of the examples at `localhost:9090`.
 
 ## List of apps
 
