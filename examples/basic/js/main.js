@@ -1,6 +1,6 @@
 melchiorjs.config({
 	paths: {
-		// path name the same as global that lib exposes
+		// path key the same as global that lib exposes
 		// saves from optional `shim` property on config
 		'jQuery': 'js/vendor/jquery',
 		'underscore': 'js/vendor/underscore',

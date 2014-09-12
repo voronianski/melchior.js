@@ -64,7 +64,7 @@ Inside `entry.js` call `melchiorjs.config()` with `paths` object inside that wil
 ```javascript
 melchiorjs.config({
 	paths: {
-		// path name the same as global that lib exposes
+		// path key the same as global that lib exposes
 		// saves from optional `shim` property on config
 		'jQuery': 'path/to/jquery',
 		'underscore': 'path/to/underscore',
@@ -73,8 +73,8 @@ melchiorjs.config({
 	},
 
 	// provide shim to non-melchior modules
-	// declare the global returned by library
 	shim: {
+		// declare the global returned by library
 		underscore: {
 			exports: '_'
 		}
@@ -109,6 +109,19 @@ This repo contains a special [examples](https://github.com/voronianski/melchior.
 ### config(options)
 
 ### module(name)
+
+Create a module. You should specify a unique module name.
+
+```javascript
+melchiorjs.module('yourModule');
+```
+
+It is possible for module name to have the namespace. A valid namespace should consist of several words and be separated by dots (`.`). _Melchior_ takes the value after last dot as module name.
+
+```javascript
+// `utils` will be considered as module name
+melchiorjs.module('core.utils');
+```
 
 ### require(moduleName, [alias])
 
