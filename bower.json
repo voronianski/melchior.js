@@ -1,6 +1,6 @@
 {
   "name": "melchiorjs",
-  "version": "0.1.0-rc",
+  "version": "0.1.1-rc",
   "description": "Chainable Module Definition (CMD) in-browser module loader",
   "keywords": [
     "CMD",
@@ -24,6 +24,9 @@
     "test",
     "tests",
     "example",
-    "examples"
+    "examples",
+    "karma.conf-ci.js",
+    "karma.conf.js",
+    "Gruntfile.js"
   ]
 }
