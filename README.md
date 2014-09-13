@@ -81,9 +81,9 @@ melchiorjs.config({
 });
 ```
 
-For more detailed information on how `.config` works check [documentation](https://github.com/voronianski/melchior.js#configoptions).
+For more detailed information on how `config` works check [documentation](https://github.com/voronianski/melchior.js#configoptions).
 
-From this point you will be able to `.require` dependencies. Modules names and `paths` keys should be the same in order to loader work properly.
+From this point you will be able to `require` dependencies. Modules names and `paths` keys should be the same in order to loader work properly.
 
 ```javascript
 melchiorjs.module('app')
@@ -113,7 +113,7 @@ Initialize dependency script loader that will asynchronously load the modules fr
 
 - `paths` - hash-map like object of scripts that will be loaded. Keys are module names and values are paths to the files.
 
-- `shim` - object where third-party libs and traditional "browser globals" scripts are configured to declare the dependencies and set the value returned by module. There're two options for every shim object `deps` which is array of dependencies (module names strings separated by coma) and `exports` - string representative of global variable exposed by script.
+- `shim` - object where third-party libs and traditional "browser globals" scripts are configured to declare the dependencies and set the value returned by module. There are **2 options** for every shim object: `deps` which is array of dependency names and `exports` - string representative of global variable exposed by script.
 
 - `timeout` - `ms` amount of time to wait before XHR'ed script timeouts, default `5000`
 
