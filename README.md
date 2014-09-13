@@ -8,7 +8,9 @@ _Melchior_ is the first library that fully implements the [Draft](https://github
 
 _Melchior_ does not have dependencies on any JavaScript framework. It is small with around 3KB when minified.
 
+<!--
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/voronianski.svg)](https://travis-ci.org/voronianski/melchior.js)
+-->
 
 ## An alternative to AMD and RequireJS
 
