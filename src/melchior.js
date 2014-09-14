@@ -309,7 +309,7 @@
 					if (mod.path === self.path) {
 						setTimeout(function () {
 							self._exec();
-						}, 100);
+						}, 0);
 					}
 				});
 			}

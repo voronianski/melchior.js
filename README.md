@@ -233,7 +233,7 @@ Despite that _Melchior_ is small and has very minimalistic API it may be not per
 
 Thanks [John Wu](https://github.com/tjwudi) for amazing idea and inspiration.
 
-Module name is inspired by [Evangelion](http://en.wikipedia.org/wiki/Neon_Genesis_Evangelion)'s MAGI supercomputer. :v:
+Library name is inspired by [Evangelion](http://en.wikipedia.org/wiki/Neon_Genesis_Evangelion)'s MAGI supercomputer. :v:
 
 ![Ireul Hacking Magi](http://img1.wikia.nocookie.net/__cb20120311022755/evangelion/images/2/2d/Ireul_Hacking_Magi.png)
 
