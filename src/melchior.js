@@ -337,11 +337,18 @@
 			}
 
 			var wrapFn = function () {
-				var scope = this;
+        var wrapperArgsName = [];
+        var wrapperArgsValue = [];
 				each(deps, function (dep) {
-					scope[dep.varName] = dep.instance;
+          wrapperArgsName.push(dep.varName);
+          wrapperArgsValue.push(dep.instance);
 				});
-				return (self._body)();
+
+        var fullBody = self._body.toString();
+        var body = fullBody.substring(fullBody.indexOf('{') + 1, fullBody.lastIndexOf('}'));
+
+        return Function.apply(Function, wrapperArgsName.concat([body]))
+          .apply(null, wrapperArgsValue);
 			};
 			self._instance = wrapFn.call(global) || '__executed__';
 		}
