@@ -23,7 +23,7 @@ module.exports = function (config) {
 			browserName: 'safari',
 			platform: 'OS X 10.9'
 		},
-		'SL_iPhone_Safari_7': {
+		'SL_iPhone_Safari': {
 			base: 'SauceLabs',
 			browserName: 'iphone',
 			platform: 'OS X 10.9',
@@ -47,7 +47,7 @@ module.exports = function (config) {
 			platform: 'Windows 7',
 			version: '8'
 		},
-		'SL_Opera_12': {
+		'SL_Opera': {
 			base: 'SauceLabs',
 			browserName: 'opera',
 			platform: 'Windows 7',
