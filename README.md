@@ -229,7 +229,7 @@ melchiorjs.module('core')
 
 ## Browser support
 
-_Melchior_ was tested successfully and officially supports such browsers:
+_Melchior_ was tested successfully and officially supports:
 
 - Internet Explorer 8+
 - Chrome 1+
