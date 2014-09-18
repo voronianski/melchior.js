@@ -227,6 +227,16 @@ melchiorjs.module('core')
 });
 ```
 
+## Browser support
+
+_Melchior_ was tested successfully and officially supports:
+
+- Internet Explorer 8+
+- Chrome 1+
+- Firefox 2+
+- Safari 3+
+- Opera 10+
+
 ## Contribution
 
 Despite that _Melchior_ is small and has very minimalistic API it may be not perfect yet. So if you found a bug or have an idea how to make it better do not hesitate to create an [issue](https://github.com/voronianski/melchior.js/issues) or even send a [pull request](https://github.com/voronianski/melchior.js/pulls).
