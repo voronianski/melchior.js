@@ -70,12 +70,11 @@
 		}
 	});
 
-	var mch = global.melchiorjs = function (config) {
-		if (config.main) {
+	var mch = global.melchiorjs = function (cfg) {
+		if (cfg.main) {
 			mch._injectMain(cfg.main);
 		}
 
-		cfg = config;
 		cfg.timeout = cfg.timeout || 5000;
 		cfg.shim = cfg.shim || {};
 
