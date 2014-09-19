@@ -337,19 +337,19 @@
 			}
 
 			var wrapFn = function () {
-        			var wrapperArgsName = [];
-        			var wrapperArgsValue = [];
-				
+				var wrapperArgsNames = [];
+				var wrapperArgsValues = [];
+
 				each(deps, function (dep) {
-          				wrapperArgsName.push(dep.varName);
-          				wrapperArgsValue.push(dep.instance);
+					wrapperArgsNames.push(dep.varName);
+					wrapperArgsValues.push(dep.instance);
 				});
 
-        			var fullBody = self._body.toString();
-        			var body = fullBody.substring(fullBody.indexOf('{') + 1, fullBody.lastIndexOf('}'));
+				var fullBody = self._body.toString();
+				var body = fullBody.substring(fullBody.indexOf('{') + 1, fullBody.lastIndexOf('}'));
 
-        			return Function.apply(Function, wrapperArgsName.concat([body]))
-          				.apply(null, wrapperArgsValue);
+				return Function.apply(Function, wrapperArgsNames.concat([body]))
+					.apply(null, wrapperArgsValues);
 			};
 			self._instance = wrapFn.call(global) || '__executed__';
 		}
