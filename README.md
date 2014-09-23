@@ -4,6 +4,8 @@
 
 [![](https://dl.dropboxusercontent.com/u/100463011/melchiorjs-logo.png)](http://labs.voronianski.com/melchior.js)
 
+[![Bountysource](https://www.bountysource.com/badge/team?team_id=981&style=raised)](https://www.bountysource.com/teams/melchiorjs?utm_source=MelchiorJS&utm_medium=shield&utm_campaign=raised)
+
 > Tiny JavaScript _in-browser_ module loader that implements **Chainable Module Definition** API.
 
 _Melchior_ is the first library that fully implements the [Draft](https://github.com/tjwudi/wd.js/wiki/module-loader) proposed by [John Wu](https://github.com/tjwudi) and brings to life **"the most javascripty"** way to configure modules and its dependencies for in-browser use. 
