@@ -1,10 +1,10 @@
 # MelchiorJS
 
-[![build status](http://img.shields.io/travis/voronianski/melchior.js.svg?style=flat-square)](https://travis-ci.org/voronianski/melchior.js)
-
-[![](https://dl.dropboxusercontent.com/u/100463011/melchiorjs-logo.png)](http://labs.voronianski.com/melchior.js)
+[![build status](http://img.shields.io/travis/voronianski/melchior.js.svg)](https://travis-ci.org/voronianski/melchior.js)
 
 [![Bountysource](https://www.bountysource.com/badge/team?team_id=981&style=raised)](https://www.bountysource.com/teams/melchiorjs?utm_source=MelchiorJS&utm_medium=shield&utm_campaign=raised)
+
+[![](https://dl.dropboxusercontent.com/u/100463011/melchiorjs-logo.png)](http://labs.voronianski.com/melchior.js)
 
 > Tiny JavaScript _in-browser_ module loader that implements **Chainable Module Definition** API.
 
