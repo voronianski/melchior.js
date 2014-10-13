@@ -108,6 +108,8 @@ melchiorjs.module('app')
 
 This repo contains a special [examples](https://github.com/voronianski/melchior.js/tree/master/examples) folder where several types of applications using _Melchior_ are presented.
 
+## [Getting started](http://pixelhunter.me/post/98247138509/getting-started-with-melchior-js)
+
 ## Documentation
 
 ### config(options)
