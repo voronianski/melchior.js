@@ -81,7 +81,7 @@
 
 		if (cfg.paths) {
 			eachProp(cfg.paths, function (url, path) {
-				// support extenstion ommited paths
+				// support extensions ommited paths
 				var routes = url.split('/');
 				var lastIndex = routes.length - 1;
 				if (!jsSuffixRegExp.test(routes[lastIndex])) {
