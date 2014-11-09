@@ -336,14 +336,6 @@
 				}
 			}
 
-			// var wrapFn = function () {
-			// 	var scope = this;
-			// 	each(deps, function (dep) {
-			// 		scope[dep.varName] = dep.instance;
-			// 	});
-			// 	return (self._body)();
-			// };
-
 			var wrapFn = function () {
 				var wrapperArgsName = [];
 				var wrapperArgsValue = [];
@@ -353,14 +345,12 @@
 					wrapperArgsValue.push(dep.instance);
 				});
 
-				var fullBody = self._body.toString();
-				var body = fullBody.substring(fullBody.indexOf('{') + 1, fullBody.lastIndexOf('}'));
+				var funcString = self._body.toString();
+				var funcBody = funcString.substring(funcString.indexOf('{') + 1, funcString.lastIndexOf('}'));
 
-				return Function
-					.apply(Function, wrapperArgsName.concat([body]))
-					.apply(null, wrapperArgsValue);
+				return Function.apply(global, wrapperArgsName.concat([funcBody])).apply(global, wrapperArgsValue);
 			};
-			self._instance = wrapFn.call(global) || '__executed__';
+			self._instance = wrapFn.call() || '__executed__';
 		}
 	};
 
