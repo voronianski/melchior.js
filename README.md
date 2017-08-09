@@ -4,7 +4,7 @@
 ![dependencies](http://img.shields.io/badge/dependencies-none-green.svg)
 [![bountysource](https://www.bountysource.com/badge/team?team_id=981&style=raised)](https://www.bountysource.com/teams/melchiorjs)
 
-[![](https://dl.dropboxusercontent.com/u/100463011/melchiorjs-logo.png)](http://labs.voronianski.com/melchior.js)
+![](https://user-images.githubusercontent.com/974035/29127757-4bafda9c-7d22-11e7-91c4-ee3d1d035819.png)
 
 > Tiny JavaScript _in-browser_ module loader that implements **Chainable Module Definition** API.
 
