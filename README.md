@@ -251,7 +251,7 @@ Library name is inspired by [Evangelion](http://en.wikipedia.org/wiki/Neon_Genes
 
 ![Ireul Hacking Magi](http://img1.wikia.nocookie.net/__cb20120311022755/evangelion/images/2/2d/Ireul_Hacking_Magi.png)
 
-Library also has [landing page](https://github.com/voronianski/melchior-landing) - http://labs.voronianski.com/melchior.js 
+Library also has [landing page](https://github.com/voronianski/melchior-landing) - http://labs.voronianski.dev/melchior.js 
 
 ## License
 
